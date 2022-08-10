@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Check we have a parameter which should be a container name
+if [ -z "$1" ]
+then
+    echo -e "\nERROR: Specify container name as parameter 1\n"
+    return 2> /dev/null; exit
+fi
+
+docker exec -it $1 /bin/bash

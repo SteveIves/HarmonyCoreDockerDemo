@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# Check we have a parameter which should be an image name
+if [ -z "$1" ]
+then
+    echo -e "\nERROR: Specify image name as parameter 1\n"
+    return 2> /dev/null; exit
+fi
+
+# Check we have a Dockerfile for the image
+if [ ! -x $1.Dockerfile ]
+then
+    echo -e "\nERROR: $1.Dockerfile not found\n"
+    return 2> /dev/null; exit
+fi
+
+# If there is a setup script for the image, run it
+if [ -x $1.Setup ]
+then
+    source $1.Setup
+fi
+
+# Validate any build parameters defined by the setup script
+if [ -n "BUILD_PARAMS" ]
+then
+    buildParams=""
+    missingBuildParams=""
+    bparams=$(echo $BUILD_PARAMS | tr "," "\n")
+    for paramName in $bparams
+    do
+        paramValue="${!paramName}"
+        if [ -n "$paramValue" ]
+        then
+            buildParams="$buildParams --build-arg $paramName=$paramValue"
+        else
+            missingBuildParams="$missingBuildParams $paramName"
+        fi
+    done
+    if [ -n "$missingBuildParams" ]
+    then
+        echo -e "\nERROR: Missing build parameters $missingBuildParams\n"
+        return 2> /dev/null; exit
+    fi
+fi
+
+# Rebuild the image
+docker build --no-cache -f $1.Dockerfile $buildParams -t $1 .

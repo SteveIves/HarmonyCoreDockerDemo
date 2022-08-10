@@ -38,6 +38,7 @@ OutputFiles
 /PUBLISH
 /TraditionalBridge/EXE
 /regen_last.bat
+/ExportHttpsCertificate.Settings.bat
 /Publish.Settings.bat
 /DeployToIIS.Settings.bat
 *.zip

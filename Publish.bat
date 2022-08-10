@@ -37,7 +37,7 @@ rem the file is present it will be executed when this script runs.
 setlocal EnableDelayedExpansion
 
 set SolutionDir=%~dp0
-set SYNCPMOPT=-wd=316
+set SYNCMPOPT=-WD=316
 
 pushd "%SolutionDir%"
 

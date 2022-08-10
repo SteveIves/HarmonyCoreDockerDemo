@@ -73,9 +73,6 @@ namespace Services.Host
         private static method setLogicals, void
         proc
             data sampleDataFolder = findRelativeFolderForAssembly("SampleData")
-
-            Console.WriteLine("Data folder           " + sampleDataFolder)
-
             Startup.LogicalNames = new List<string>()
             data logical = String.Empty
             data fileSpec = String.Empty

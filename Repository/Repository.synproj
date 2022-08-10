@@ -18,6 +18,7 @@
     <MOutputName>rpsmain</MOutputName>
     <TOutputName>rpstext</TOutputName>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <UseExistingRepository>True</UseExistingRepository>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>$(SolutionDir)Repository</OutputPath>

@@ -1,0 +1,246 @@
+#! /bin/sh
+echo() { /bin/echo -e "$*" ; }	# Non-conforming echo (Linux, etc)
+ # -----------------------------------------------------------------------
+ #
+ # Module:      auto.install - automation script for the
+ #  			       installation menu script for Synergy/DE UNIX
+ #
+ # Author:      Tate Chamberlain
+ #
+ # Date:	2020-01-28
+ #
+ # This script will run install.sde in non-interactive mode.
+ # Run 'auto.install -h' for usage information.
+ #
+ # You are welcome to modify this script to suit your particular needs.  
+ # It must be assumed that anyone modifying this script understands 
+ # the results of their actions and Synergex can make no warranty.
+ #
+ # ----------------------------------------------------------------------- 
+
+lmname="License Manager"
+langname="Synergy Language"
+tkname="UI Toolkit"
+rpsname="Repository"
+rptname="ReportWriter"
+sqlname="Connectivity Series"
+servname="xfServer/xfServerPlus"
+
+installnew=0
+installupgrade=0
+installproducts=""
+install1=1
+install2=1
+install3=1
+install4=1
+install5=1
+install6=1
+installpath=""
+licenseename=""
+displayusage=0
+
+# Get arguments
+# lifewire.com/pass-arguments-to-bash-script-2200571
+while getopts un:l:p:h option
+do
+	echo "Option: ${option}"
+	case "${option}"
+	in
+		u) {
+			echo "Upgrade"
+			installupgrade=1
+		};;
+		n) {
+			echo "New install, licensee: ${OPTARG}"
+			installnew=1
+			licenseename=${OPTARG}
+			if [ xx"$licenseename" = xx"-u" -o xx"$licenseename" = xx"-l" -o xx"$licenseename" = xx"-p" -o xx"$licenseename" = xx"-h" ]; then
+				echo "Error: Must specify licensee name when using -n option."
+				exit 1
+			fi
+		};;
+		l) {
+			echo "Install location: ${OPTARG}"
+			installpath=${OPTARG}
+		};;
+		p) {
+			echo "Products: ${OPTARG}"
+			# Evaluate argument and find selected products
+			# stackoverflow.com/questions/2829613
+			installproducts=${OPTARG}
+			install1=0
+			install2=0
+			install3=0
+			install4=0
+			install5=0
+			install6=0
+			if [ "${installproducts#*1}" != "$installproducts" ]; then
+				install1=1
+			fi
+			if [ "${installproducts#*2}" != "$installproducts" ]; then
+				install2=1
+			fi
+			if [ "${installproducts#*3}" != "$installproducts" ]; then
+				install3=1
+			fi
+			if [ "${installproducts#*4}" != "$installproducts" ]; then
+				install4=1
+			fi
+			if [ "${installproducts#*5}" != "$installproducts" ]; then
+				install5=1
+			fi
+			if [ "${installproducts#*6}" != "$installproducts" ]; then
+				install6=1
+			fi
+		};;
+		h) {
+			echo "Help"
+			displayusage=1
+		};;
+	esac
+done
+
+#echo "Install1 = $install1"
+#echo "Install2 = $install2"
+#echo "Install3 = $install3"
+#echo "Install4 = $install4"
+#echo "Install5 = $install5"
+#echo "Install6 = $install6"
+
+if [ xx"$installnew" = xx"1" -a xx"$installupgrade" = xx"1" ]; then
+{
+	echo "Error: Installation cannot be new and upgrade simultaneously."
+	echo "\tRun 'auto.install -h' for usage information."
+	exit 1
+}
+fi
+
+if [ xx"$installnew" = xx"0" -a xx"$installupgrade" = xx"0" ]; then
+	echo "Must specify installation type: new or upgrade."
+	displayusage=1
+fi
+
+if [ xx"$displayusage" = xx"1" ]; then
+# Display usage info
+echo "This script will automatically accept the Synergex Synergy/DE Product "
+echo "License Agreement (PLA) and will install Synergy/DE in non-interactive mode"
+echo "Usage: "
+echo "\tauto.install {-u/-n Licensee} [-l Path] [-p [1][2][3][4][5][6]]"
+echo ""
+echo "-u: Upgrade. Install Synergy on a system that already has"
+echo "\tlicensing configured for the current bit size."
+echo "-n: New. Install Synergy on a system that does not have licensing"
+echo "\tconfigured for the current bit size. Specify licensee name"
+echo "\twith Licensee argument."
+echo ""
+echo "-l: Location. If you want to install Synergy somewhere other than"
+echo "\tthe synergyde directory under the current directory, use the"
+echo "\t-l switch and specify the full path in the Path argument."
+echo ""
+echo "-p: Products. By default, this script will install all available "
+echo "\tSynergy/DE products. If you only want certain products, use"
+echo "\tthe -p switch and select the products you want from the"
+echo "\tfollowing list."
+echo "\t\t1.  $lmname (required for new installations)"
+echo "\t\t2.  Professional Series"
+echo "\t\t    ($langname, $tkname, $rpsname, $rptname)"
+echo "\t\t3.  $rptname"
+echo "\t\t4.  $sqlname"
+echo "\t\t5.  $servname"
+echo "\t\t6.  $langname"
+echo ""
+echo "Make sure to run this script as root or sudo from the same location as"
+echo "install.sde. This script is provided as-is, and no guarantees are made"
+echo "regarding its use or its compatibility with any given OS or Synergy/DE"
+echo "version (though it was tested with Synergy/DE 11.1.1c on Ubuntu 19.04)."
+exit 1
+fi
+
+
+# Backup the license file and replace with a shorter copy that wont require user input when displayed by "more".
+
+if [ -f TEMPLICENSE.TXT ]; then
+echo "TEMPLICENSE.TXT found, assumed to be the current license text."
+else
+echo "Backing up LICENSE.TXT to TEMPLICENSE.TXT"
+mv LICENSE.TXT TEMPLICENSE.TXT
+fi
+
+echo "By performing a non-interactive installation of Synergy/DE, you implicitly agree to the Synergex Synergy/DE Product License Agreement (PLA)." > LICENSE.TXT
+echo "See LICENSE.TXT for the full text of the PLA." >> LICENSE.TXT
+
+
+# Generate the input file to be redirected into install.sde.
+echo "" > installinput 		# <LF> to get past the welcome screen.
+echo "y" >> installinput 	# Agree to the license.
+echo "1" >> installinput 	# Install Synergy/DE, not xfNetLink Java Edition
+echo "n" >> installinput 	# Next screen
+
+if [ xx"$installnew" = xx"1" ]; then
+echo "" >> installinput 	# Continue past screen that says License Manager will be installed
+fi
+
+if [ xx"$installnew" = xx"0" -a xx"$install1" = xx"1" ]; then
+echo "" >> installinput 	# Select License Manager for installation during upgrade 
+				# (it will automatically be installed in a new install)
+fi
+
+if [ xx"$install2" = xx"1" ]; then
+echo "2" >> installinput 	# Select Professional Series for installation
+fi
+
+if [ xx"$install3" = xx"1" ]; then
+echo "3" >> installinput 	# Select ReportWriter for installation
+fi
+
+if [ xx"$install4" = xx"1" ]; then
+echo "4" >> installinput 	#Select Connectivity Series for installation
+fi
+
+if [ xx"$install5" = xx"1" ]; then
+echo "5" >> installinput 	# Select xfServer/xfServerPlus for installation
+fi
+
+if [ xx"$install6" = xx"1" ]; then
+echo "6" >> installinput 	# Select Synergy Language for installation
+fi
+
+echo "n" >> installinput 	# Next screen
+
+if [ xx"$installpath" = xx"" ]; then
+echo "" >> installinput 		# Accept default installation directory
+else
+echo "2" >> installinput 		# Change installation directory
+echo "$installpath" >> installinput 	# Set new installation directory
+echo "" >> installinput 		# Accept current installation directory
+fi
+
+echo "y" >> installinput 	# delete compressed files
+
+if [ xx"$installnew" = xx"1" ]; then
+echo "y" >> installinput
+echo "$licenseename" >> installinput 	# Licensee name
+echo "y" >> installinput 		# Confirm licensee name
+fi 
+
+./install.sde < installinput	# Run install script
+
+
+#Restore the full license file.
+rm LICENSE.TXT
+mv TEMPLICENSE.TXT LICENSE.TXT
+
+if [ xx"$installpath" = xx"" ]; then
+rm synergyde/LICENSE.TXT
+cp LICENSE.TXT synergyde/
+else
+rm "$installpath"/LICENSE.TXT
+cp LICENSE.TXT "$installpath"/
+fi
+
+
+
+
+
+
+

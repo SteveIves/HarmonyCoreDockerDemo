@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Check we have a parameter which should be an image name
+if [ -z "$1" ]
+then
+    echo -e "\nERROR: Specify image name as parameter 1\n"
+    return 2> /dev/null; exit
+fi
+
+# If there is a setup script for the image, run it
+if [ -x $1.Setup ]
+then
+    source $1.Setup
+fi
+
+if [ -n "$DOCKER_HUB_USER" ]
+then
+    docker tag $1:latest $DOCKER_HUB_USER/$1:latest
+    docker push $DOCKER_HUB_USER/$1:latest
+else
+    echo /e "\nERROR: Can't push because DOCKER_HUB_USER is not set!\n"
+fi
+

@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Build parameters
+export BUILD_PARAMS=LM_HOST
+
+if [ "$NAME" == "STEVEI" ]; then export LM_HOST=10.20.1.10; fi
+if [ "$NAME" == "sives" ];  then export LM_HOST=10.1.1.254; fi
+
+if [ -z "$LM_HOST" ]
+then
+    echo /e "\nERROR: No value provided for LM_HOST in hcservice.Setup!"
+    return 2> /dev/null; exit
+fi
+
+# Runtime volume mappings
+export VOLUME_MAPPINGS=VOLUME1
+export VOLUME1=${HOME}/.aspnet/https:/root/.aspnet/https/
+
+# Runtime environment variables
+export RUNTIME_ENVIRONMENT=LM_HOST,ASPNETCORE_ENVIRONMENT,ASPNETCORE_URLS,ASPNETCORE_HTTPS_PORT,ASPNETCORE_Kestrel__Certificates__Default__Path,ASPNETCORE_Kestrel__Certificates__Default__Password
+export ASPNETCORE_ENVIRONMENT=Production
+export ASPNETCORE_URLS="https://*:8086;http://*:8085"
+export ASPNETCORE_HTTPS_PORT=8086
+export ASPNETCORE_Kestrel__Certificates__Default__Path=/root/.aspnet/https/Services.Host.pfx
+export ASPNETCORE_Kestrel__Certificates__Default__Password="p@ssw0rd"
+
+# Runtime port mappings
+export PORT_MAPPINGS=SSH_PORT,HTTP_PORT,HTTPS_PORT
+export SSH_PORT=2022:22
+export HTTP_PORT=8085:8085
+export HTTPS_PORT=8086:8086

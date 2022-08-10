@@ -1,0 +1,95 @@
+#!/bin/bash
+
+# Check we have a parameter which should be an image name
+if [ -z "$1" ]
+then
+    echo -e "\nUsage: start <image_name> [attach]\n"
+    return 2> /dev/null; exit
+fi
+
+# If there is a setup script for the image, run it
+if [ -x $1.Setup ]
+then
+    source $1.Setup
+fi
+
+ATTACH_MODE=$2
+if [ "${ATTACH_MODE^^}" != "ATTACH" ]
+then
+    attachCommand="d"
+fi
+
+# Process any runtime environment variables defined by the setup script
+if [ -n "RUNTIME_ENVIRONMENT" ]
+then
+    environmentVariables=""
+    missingEnvironmentVariables=""
+    envVars=$(echo $RUNTIME_ENVIRONMENT | tr "," "\n")
+    for envVarName in $envVars
+    do
+        envVarValue="${!envVarName}"
+        if [ -n "$envVarValue" ]
+        then
+            environmentVariables="$environmentVariables --env $envVarName=$envVarValue"
+        else
+            missingEnvironmentVariables="$missingEnvironmentVariables $envVarName"
+        fi
+    done
+    if [ -n "$missingEnvironmentVariables" ]
+    then
+        echo -e "\nERROR: Missing runtime environment variables $missingEnvironmentVariables\n"
+        return 2> /dev/null; exit
+    fi
+fi
+
+# Process any runtime port mappings defined by the setup script
+if [ -n "PORT_MAPPINGS" ]
+then
+    portMappings=""
+    missingPortMappings=""
+    mappings=$(echo $PORT_MAPPINGS | tr "," "\n")
+    for mappingName in $mappings
+    do
+        mappingValue="${!mappingName}"
+        if [ -n "$mappingValue" ]
+        then
+            portMappings="$portMappings --publish $mappingValue"
+        else
+            missingPortMappings="$missingPortMappings $mappingName"
+        fi
+    done
+    if [ -n "$missingPortMappings" ]
+    then
+        echo -e "\nERROR: Missing runtime port mappings$missingPortMappings\n"
+        return 2> /dev/null; exit
+    fi
+fi
+
+# Process any runtime volume mappings defined by the setup script
+if [ -n "VOLUME_MAPPINGS" ]
+then
+    volumeMappings=""
+    missingVolumeMappings=""
+    mappings=$(echo $VOLUME_MAPPINGS | tr "," "\n")
+    for mappingName in $mappings
+    do
+        mappingValue="${!mappingName}"
+        if [ -n "$mappingValue" ]
+        then
+            volumeMappings="$volumeMappings --volume $mappingValue"
+        else
+            missingVolumeMappings="$missingVolumeMappings $mappingName"
+        fi
+    done
+    if [ -n "$missingVolumeMappings" ]
+    then
+        echo -e "\nERROR: Missing runtime volume mappings$missingVolumeMappings\n"
+        return 2> /dev/null; exit
+    fi
+fi
+
+startCommand="docker run -it$attachCommand --rm$portMappings$environmentVariables$volumeMappings --ipc=private $1"
+
+#echo -e "\nINFO: Container start command is: $startCommand\n"
+
+$startCommand
