@@ -1,0 +1,206 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" DefaultTargets="restore;Build">
+  <Import Project="$(SolutionDir)Common.props" />
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <DefaultLanguageSourceExtension>.dbl</DefaultLanguageSourceExtension>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <Name>Services</Name>
+    <EnableCommonProperties>True</EnableCommonProperties>
+    <ProjectGuid>{4D167CF2-92F6-407A-BB04-EFDBB35D47FE}</ProjectGuid>
+    <Prefer32Bit>False</Prefer32Bit>
+    <Install>True</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>False</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>False</UpdatePeriodically>
+    <UpdateRequired>False</UpdateRequired>
+    <MapFileExtensions>True</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.*</ApplicationVersion>
+    <IsWebBootstrapper>False</IsWebBootstrapper>
+    <UseApplicationTrust>False</UseApplicationTrust>
+    <BootstrapperEnabled>True</BootstrapperEnabled>
+    <PublishUrl>publish\</PublishUrl>
+    <PublishWizardCompleted>True</PublishWizardCompleted>
+    <GenerateMvcApplicationPartsAssemblyAttributes>false</GenerateMvcApplicationPartsAssemblyAttributes>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\$(configuration)</OutputPath>
+    <UnevaluatedOutputPath>bin\$(configuration)</UnevaluatedOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <UnevaluatedOutputPath>bin\$(configuration)</UnevaluatedOutputPath>
+    <OutputPath>bin\$(configuration)</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Harmony.Core">
+      <Version>6.0.9</Version>
+    </PackageReference>
+    <PackageReference Include="Harmony.Core.AspNetCore">
+      <Version>6.0.9</Version>
+    </PackageReference>
+    <PackageReference Include="Harmony.Core.EF">
+      <Version>6.0.9</Version>
+    </PackageReference>
+    <PackageReference Include="Harmony.Core.OData">
+      <Version>6.0.9</Version>
+    </PackageReference>
+    <PackageReference Include="IdentityServer4.AccessTokenValidation">
+      <Version>3.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Cors">
+      <Version>2.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.HttpsPolicy">
+      <Version>2.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore">
+      <Version>6.2.3</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.2" />
+    <PackageReference Include="Synergex.SynergyDE.Build">
+      <Version>22.3.1080</Version>
+    </PackageReference>
+    <PackageReference Include="Synergex.SynergyDE.synrnt">
+      <Version>12.1.1.3278</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Repository\Repository.synproj">
+      <Name>Repository</Name>
+      <Project>{cc6c33fb-c46c-4484-972c-c454743f8add}</Project>
+      <Private>True</Private>
+      <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\Services.Controllers\Services.Controllers.synproj">
+      <Name>Services.Controllers</Name>
+      <Project>{1BD1F1A5-C3BE-4E9C-AC55-ABE12BFB118E}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Services.Isolated\Services.Isolated.synproj">
+      <Name>Services.Isolated</Name>
+      <Project>{15223F07-0941-46E8-9C2F-9924D7FFA678}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Services.Models\Services.Models.synproj">
+      <Name>Services.Models</Name>
+      <Project>{34B28205-9BD9-4238-84F0-6959C1F0AF5C}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BridgeNoPool.dbl" />
+    <Compile Include="Filters\ModelStateValidationFilter.dbl" />
+    <Compile Include="Filters\TenantValidationFilter.dbl" />
+    <Compile Include="StartupCustom.dbl" />
+    <Folder Include="Filters" />
+    <Folder Include="wwwroot" />
+    <Compile Include="EdmBuilder.dbl" />
+    <Compile Include="PrimaryKeyGenerator.dbl" />
+    <Compile Include="Startup.dbl" />
+    <Folder Include="wwwroot" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="wwwroot\browserconfig.xml">
+      <SubType>Content</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\index.html">
+      <SubType>Content</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\manifest.json">
+      <SubType>Content</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="wwwroot\android-icon-144x144.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\android-icon-192x192.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\android-icon-36x36.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\android-icon-48x48.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\android-icon-72x72.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\android-icon-96x96.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\apple-icon-114x114.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\apple-icon-120x120.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\apple-icon-144x144.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\apple-icon-152x152.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\apple-icon-180x180.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\apple-icon-57x57.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\apple-icon-60x60.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\apple-icon-72x72.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\apple-icon-76x76.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\apple-icon-precomposed.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\apple-icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\favicon-16x16.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\favicon-32x32.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\favicon-96x96.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\favicon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\HarmonyCoreLogo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\ms-icon-144x144.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\ms-icon-150x150.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\ms-icon-310x310.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\ms-icon-70x70.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Install>True</Install>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Visible>False</Visible>
+    </BootstrapperPackage>
+  </ItemGroup>
+</Project>

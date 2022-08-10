@@ -1,0 +1,35 @@
+#!/bin/bash
+# 
+# startService (Starts the Harmony Core service)
+# 
+# Optional parameters:
+#
+#   $1 - Pass DEBUG to wait for debugger to attach
+#
+#------------------------------------------------------------------------------
+# Put us in the same directory as this script
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+cd $SCRIPT_DIR
+
+#------------------------------------------------------------------------------
+# Process the optional parameters
+
+export WAIT_FOR_DEBUGGER=
+if [[ "${1^^}" == "DEBUG" ]]
+then
+	export WAIT_FOR_DEBUGGER=TRUE
+fi
+
+#------------------------------------------------------------------------------
+# If not already set, run in Production mode
+
+if [[ -z "$ASPNETCORE_ENVIRONMENT" ]]
+then
+	export ASPNETCORE_ENVIRONMENT=Production
+fi
+
+#------------------------------------------------------------------------------
+# Start the Harmony Core service
+
+Services.Host

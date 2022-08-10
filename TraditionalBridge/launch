@@ -1,0 +1,41 @@
+#!/bin/bash
+# 
+# launch (Launches a Harmony Core Traditional Bridge process)
+# 
+# Optional parameters:
+#
+#   $1 - Log level (1-6)
+#
+#------------------------------------------------------------------------------
+# Verify that we have a Synergy environment
+
+if [ -z $DBLDIR ]
+then
+	echo "ERROR: No DBL environment detected!"
+	return 2> /dev/null; exit
+fi
+
+#------------------------------------------------------------------------------
+# Put us in the same directory as this script
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+cd $SCRIPT_DIR
+
+#------------------------------------------------------------------------------
+# Process the optional parameters
+
+export HARMONY_LOG_LEVEL=2
+if [ ! -z $1 ]
+then
+	export HARMONY_LOG_LEVEL=$1
+fi
+
+#------------------------------------------------------------------------------
+# Start the Traditional Bridge host program
+
+stty -echo -onlcr
+
+dbs host.dbr
+#dbr -dv -rd 4444:60 host.dbr
+
+stty echo onlcr

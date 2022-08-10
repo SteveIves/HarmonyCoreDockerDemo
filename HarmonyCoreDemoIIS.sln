@@ -1,0 +1,220 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32319.34
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "Services", "Services\Services.synproj", "{4D167CF2-92F6-407A-BB04-EFDBB35D47FE}"
+EndProject
+Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "Services.Host", "Services.Host\Services.Host.synproj", "{D382AB62-71F4-439D-9EE4-ECFCFFD29D9B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{6C9AD151-7DA4-477B-A52C-FB883D9D1057}"
+	ProjectSection(SolutionItems) = preProject
+		Templates\GenerateTestValues.tpl = Templates\GenerateTestValues.tpl
+		Templates\HarmonyCoreCustomization.json = Templates\HarmonyCoreCustomization.json
+		Templates\HarmonyCoreCustomization.tpl = Templates\HarmonyCoreCustomization.tpl
+		Templates\ODataClientModel.tpl = Templates\ODataClientModel.tpl
+		Templates\ODataController.tpl = Templates\ODataController.tpl
+		Templates\ODataControllerPropertyEndpoints.tpl = Templates\ODataControllerPropertyEndpoints.tpl
+		Templates\ODataCustomAuthController.tpl = Templates\ODataCustomAuthController.tpl
+		Templates\ODataCustomAuthModels.tpl = Templates\ODataCustomAuthModels.tpl
+		Templates\ODataCustomAuthTools.tpl = Templates\ODataCustomAuthTools.tpl
+		Templates\ODataDbContext.tpl = Templates\ODataDbContext.tpl
+		Templates\ODataEdmBuilder.tpl = Templates\ODataEdmBuilder.tpl
+		Templates\ODataMetaData.tpl = Templates\ODataMetaData.tpl
+		Templates\ODataModel.tpl = Templates\ODataModel.tpl
+		Templates\ODataPostManTests.tpl = Templates\ODataPostManTests.tpl
+		Templates\ODataSelfHost.tpl = Templates\ODataSelfHost.tpl
+		Templates\ODataSelfHostEnvironment.tpl = Templates\ODataSelfHostEnvironment.tpl
+		Templates\ODataStartup.tpl = Templates\ODataStartup.tpl
+		Templates\ODataTestConstantsProperties.tpl = Templates\ODataTestConstantsProperties.tpl
+		Templates\ODataTestDataLoader.tpl = Templates\ODataTestDataLoader.tpl
+		Templates\ODataUnitTestEnvironment.tpl = Templates\ODataUnitTestEnvironment.tpl
+		Templates\ODataUnitTestHost.tpl = Templates\ODataUnitTestHost.tpl
+		Templates\ODataUnitTests.tpl = Templates\ODataUnitTests.tpl
+		Templates\PostManDevelopmentEnvironment.tpl = Templates\PostManDevelopmentEnvironment.tpl
+		Templates\SystemTextJsonModel.tpl = Templates\SystemTextJsonModel.tpl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{29AEA4C4-62B2-4F46-9B80-5F061D950BE1}"
+	ProjectSection(SolutionItems) = preProject
+		DeployToIIS.bat = DeployToIIS.bat
+		DeployToIIS.Settings.bat = DeployToIIS.Settings.bat
+		ODataService.codegen = ODataService.codegen
+		Publish.bat = Publish.bat
+		Publish.Settings.bat = Publish.Settings.bat
+		regen.bat = regen.bat
+		regen_last.bat = regen_last.bat
+		UserDefinedTokens.tkn = UserDefinedTokens.tkn
+		web.config = web.config
+	EndProjectSection
+EndProject
+Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "Services.Isolated", "Services.Isolated\Services.Isolated.synproj", "{15223F07-0941-46E8-9C2F-9924D7FFA678}"
+EndProject
+Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "Services.Models", "Services.Models\Services.Models.synproj", "{34B28205-9BD9-4238-84F0-6959C1F0AF5C}"
+EndProject
+Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "Services.Controllers", "Services.Controllers\Services.Controllers.synproj", "{1BD1F1A5-C3BE-4E9C-AC55-ABE12BFB118E}"
+EndProject
+Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "Repository", "Repository\Repository.synproj", "{CC6C33FB-C46C-4484-972C-C454743F8ADD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TraditionalBridge", "TraditionalBridge", "{1E3F00B9-F73D-459B-A8DB-310E97FEE18C}"
+	ProjectSection(SolutionItems) = preProject
+		Templates\TraditionalBridge\GlobalStructures.tpl = Templates\TraditionalBridge\GlobalStructures.tpl
+		Templates\TraditionalBridge\InterfaceController.tpl = Templates\TraditionalBridge\InterfaceController.tpl
+		Templates\TraditionalBridge\InterfaceDispatcher.tpl = Templates\TraditionalBridge\InterfaceDispatcher.tpl
+		Templates\TraditionalBridge\InterfaceDispatcherCustom.tpl = Templates\TraditionalBridge\InterfaceDispatcherCustom.tpl
+		Templates\TraditionalBridge\InterfaceDispatcherData.tpl = Templates\TraditionalBridge\InterfaceDispatcherData.tpl
+		Templates\TraditionalBridge\InterfaceDocumentation.tpl = Templates\TraditionalBridge\InterfaceDocumentation.tpl
+		Templates\TraditionalBridge\InterfaceMethodDispatchers.tpl = Templates\TraditionalBridge\InterfaceMethodDispatchers.tpl
+		Templates\TraditionalBridge\InterfaceMethodStubs.tpl = Templates\TraditionalBridge\InterfaceMethodStubs.tpl
+		Templates\TraditionalBridge\InterfacePostmanTests.tpl = Templates\TraditionalBridge\InterfacePostmanTests.tpl
+		Templates\TraditionalBridge\InterfaceService.tpl = Templates\TraditionalBridge\InterfaceService.tpl
+		Templates\TraditionalBridge\InterfaceServiceModels.tpl = Templates\TraditionalBridge\InterfaceServiceModels.tpl
+		Templates\TraditionalBridge\InterfaceSuperDispatcher.tpl = Templates\TraditionalBridge\InterfaceSuperDispatcher.tpl
+		Templates\TraditionalBridge\InterfaceTestRequests.tpl = Templates\TraditionalBridge\InterfaceTestRequests.tpl
+		Templates\TraditionalBridge\InterfaceTestResponses.tpl = Templates\TraditionalBridge\InterfaceTestResponses.tpl
+		Templates\TraditionalBridge\InterfaceUnitTests.tpl = Templates\TraditionalBridge\InterfaceUnitTests.tpl
+		Templates\TraditionalBridge\InterfaceUnitTestValues.tpl = Templates\TraditionalBridge\InterfaceUnitTestValues.tpl
+		Templates\TraditionalBridge\MetadataInit.tpl = Templates\TraditionalBridge\MetadataInit.tpl
+		Templates\TraditionalBridge\MultiInterfaceServiceModels.tpl = Templates\TraditionalBridge\MultiInterfaceServiceModels.tpl
+		Templates\TraditionalBridge\ODataActionModels.tpl = Templates\TraditionalBridge\ODataActionModels.tpl
+		Templates\TraditionalBridge\ODataMetaData.tpl = Templates\TraditionalBridge\ODataMetaData.tpl
+		Templates\TraditionalBridge\ODataModel.tpl = Templates\TraditionalBridge\ODataModel.tpl
+		Templates\TraditionalBridge\OptionalParameterMethodDispatchers.tpl = Templates\TraditionalBridge\OptionalParameterMethodDispatchers.tpl
+		Templates\TraditionalBridge\TraditionalMetaData.tpl = Templates\TraditionalBridge\TraditionalMetaData.tpl
+		Templates\TraditionalBridge\TraditionalModel.tpl = Templates\TraditionalBridge\TraditionalModel.tpl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SignalR", "SignalR", "{F11D78B0-4DF7-453C-854C-A87CA031EC84}"
+	ProjectSection(SolutionItems) = preProject
+		Templates\SignalR\SignalRHub.tpl = Templates\SignalR\SignalRHub.tpl
+		Templates\SignalR\SignalRRequestFactory.tpl = Templates\SignalR\SignalRRequestFactory.tpl
+		Templates\SignalR\SignalRResponseValidation.tpl = Templates\SignalR\SignalRResponseValidation.tpl
+		Templates\SignalR\SignalRTests.tpl = Templates\SignalR\SignalRTests.tpl
+	EndProjectSection
+EndProject
+Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "TraditionalBridge", "TraditionalBridge\TraditionalBridge.synproj", "{3BA88C80-BA85-4063-AE3B-9005A1B568BC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MySQL", "MySQL", "{FD5E73CA-FC41-4560-AFD9-2F5B8581B34D}"
+	ProjectSection(SolutionItems) = preProject
+		Templates\MySQL\ODataController.tpl = Templates\MySQL\ODataController.tpl
+		Templates\MySQL\ODataEdmBuilder.tpl = Templates\MySQL\ODataEdmBuilder.tpl
+		Templates\MySQL\ODataPostManTests.tpl = Templates\MySQL\ODataPostManTests.tpl
+		Templates\MySQL\ODataSelfHostEnvironment.tpl = Templates\MySQL\ODataSelfHostEnvironment.tpl
+		Templates\MySQL\ODataStartup.tpl = Templates\MySQL\ODataStartup.tpl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TypeScript", "TypeScript", "{891CD25D-05F9-4617-9280-C5E8F1511E34}"
+	ProjectSection(SolutionItems) = preProject
+		Templates\TypeScript\TypeScriptInterfaceClient.tpl = Templates\TypeScript\TypeScriptInterfaceClient.tpl
+		Templates\TypeScript\TypeScriptInterfaceMethods.tpl = Templates\TypeScript\TypeScriptInterfaceMethods.tpl
+		Templates\TypeScript\TypeScriptInterfaceStructures.tpl = Templates\TypeScript\TypeScriptInterfaceStructures.tpl
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4D167CF2-92F6-407A-BB04-EFDBB35D47FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D167CF2-92F6-407A-BB04-EFDBB35D47FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D167CF2-92F6-407A-BB04-EFDBB35D47FE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4D167CF2-92F6-407A-BB04-EFDBB35D47FE}.Debug|x64.Build.0 = Debug|Any CPU
+		{4D167CF2-92F6-407A-BB04-EFDBB35D47FE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4D167CF2-92F6-407A-BB04-EFDBB35D47FE}.Debug|x86.Build.0 = Debug|Any CPU
+		{4D167CF2-92F6-407A-BB04-EFDBB35D47FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D167CF2-92F6-407A-BB04-EFDBB35D47FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D167CF2-92F6-407A-BB04-EFDBB35D47FE}.Release|x64.ActiveCfg = Release|Any CPU
+		{4D167CF2-92F6-407A-BB04-EFDBB35D47FE}.Release|x64.Build.0 = Release|Any CPU
+		{4D167CF2-92F6-407A-BB04-EFDBB35D47FE}.Release|x86.ActiveCfg = Release|Any CPU
+		{4D167CF2-92F6-407A-BB04-EFDBB35D47FE}.Release|x86.Build.0 = Release|Any CPU
+		{D382AB62-71F4-439D-9EE4-ECFCFFD29D9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D382AB62-71F4-439D-9EE4-ECFCFFD29D9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D382AB62-71F4-439D-9EE4-ECFCFFD29D9B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D382AB62-71F4-439D-9EE4-ECFCFFD29D9B}.Debug|x64.Build.0 = Debug|Any CPU
+		{D382AB62-71F4-439D-9EE4-ECFCFFD29D9B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D382AB62-71F4-439D-9EE4-ECFCFFD29D9B}.Debug|x86.Build.0 = Debug|Any CPU
+		{D382AB62-71F4-439D-9EE4-ECFCFFD29D9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D382AB62-71F4-439D-9EE4-ECFCFFD29D9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D382AB62-71F4-439D-9EE4-ECFCFFD29D9B}.Release|x64.ActiveCfg = Release|Any CPU
+		{D382AB62-71F4-439D-9EE4-ECFCFFD29D9B}.Release|x64.Build.0 = Release|Any CPU
+		{D382AB62-71F4-439D-9EE4-ECFCFFD29D9B}.Release|x86.ActiveCfg = Release|Any CPU
+		{D382AB62-71F4-439D-9EE4-ECFCFFD29D9B}.Release|x86.Build.0 = Release|Any CPU
+		{15223F07-0941-46E8-9C2F-9924D7FFA678}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15223F07-0941-46E8-9C2F-9924D7FFA678}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15223F07-0941-46E8-9C2F-9924D7FFA678}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{15223F07-0941-46E8-9C2F-9924D7FFA678}.Debug|x64.Build.0 = Debug|Any CPU
+		{15223F07-0941-46E8-9C2F-9924D7FFA678}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{15223F07-0941-46E8-9C2F-9924D7FFA678}.Debug|x86.Build.0 = Debug|Any CPU
+		{15223F07-0941-46E8-9C2F-9924D7FFA678}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15223F07-0941-46E8-9C2F-9924D7FFA678}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15223F07-0941-46E8-9C2F-9924D7FFA678}.Release|x64.ActiveCfg = Release|Any CPU
+		{15223F07-0941-46E8-9C2F-9924D7FFA678}.Release|x64.Build.0 = Release|Any CPU
+		{15223F07-0941-46E8-9C2F-9924D7FFA678}.Release|x86.ActiveCfg = Release|Any CPU
+		{15223F07-0941-46E8-9C2F-9924D7FFA678}.Release|x86.Build.0 = Release|Any CPU
+		{34B28205-9BD9-4238-84F0-6959C1F0AF5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34B28205-9BD9-4238-84F0-6959C1F0AF5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34B28205-9BD9-4238-84F0-6959C1F0AF5C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{34B28205-9BD9-4238-84F0-6959C1F0AF5C}.Debug|x64.Build.0 = Debug|Any CPU
+		{34B28205-9BD9-4238-84F0-6959C1F0AF5C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{34B28205-9BD9-4238-84F0-6959C1F0AF5C}.Debug|x86.Build.0 = Debug|Any CPU
+		{34B28205-9BD9-4238-84F0-6959C1F0AF5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34B28205-9BD9-4238-84F0-6959C1F0AF5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34B28205-9BD9-4238-84F0-6959C1F0AF5C}.Release|x64.ActiveCfg = Release|Any CPU
+		{34B28205-9BD9-4238-84F0-6959C1F0AF5C}.Release|x64.Build.0 = Release|Any CPU
+		{34B28205-9BD9-4238-84F0-6959C1F0AF5C}.Release|x86.ActiveCfg = Release|Any CPU
+		{34B28205-9BD9-4238-84F0-6959C1F0AF5C}.Release|x86.Build.0 = Release|Any CPU
+		{1BD1F1A5-C3BE-4E9C-AC55-ABE12BFB118E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BD1F1A5-C3BE-4E9C-AC55-ABE12BFB118E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BD1F1A5-C3BE-4E9C-AC55-ABE12BFB118E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1BD1F1A5-C3BE-4E9C-AC55-ABE12BFB118E}.Debug|x64.Build.0 = Debug|Any CPU
+		{1BD1F1A5-C3BE-4E9C-AC55-ABE12BFB118E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1BD1F1A5-C3BE-4E9C-AC55-ABE12BFB118E}.Debug|x86.Build.0 = Debug|Any CPU
+		{1BD1F1A5-C3BE-4E9C-AC55-ABE12BFB118E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BD1F1A5-C3BE-4E9C-AC55-ABE12BFB118E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BD1F1A5-C3BE-4E9C-AC55-ABE12BFB118E}.Release|x64.ActiveCfg = Release|Any CPU
+		{1BD1F1A5-C3BE-4E9C-AC55-ABE12BFB118E}.Release|x64.Build.0 = Release|Any CPU
+		{1BD1F1A5-C3BE-4E9C-AC55-ABE12BFB118E}.Release|x86.ActiveCfg = Release|Any CPU
+		{1BD1F1A5-C3BE-4E9C-AC55-ABE12BFB118E}.Release|x86.Build.0 = Release|Any CPU
+		{CC6C33FB-C46C-4484-972C-C454743F8ADD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC6C33FB-C46C-4484-972C-C454743F8ADD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC6C33FB-C46C-4484-972C-C454743F8ADD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CC6C33FB-C46C-4484-972C-C454743F8ADD}.Debug|x64.Build.0 = Debug|Any CPU
+		{CC6C33FB-C46C-4484-972C-C454743F8ADD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CC6C33FB-C46C-4484-972C-C454743F8ADD}.Debug|x86.Build.0 = Debug|Any CPU
+		{CC6C33FB-C46C-4484-972C-C454743F8ADD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC6C33FB-C46C-4484-972C-C454743F8ADD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC6C33FB-C46C-4484-972C-C454743F8ADD}.Release|x64.ActiveCfg = Release|Any CPU
+		{CC6C33FB-C46C-4484-972C-C454743F8ADD}.Release|x64.Build.0 = Release|Any CPU
+		{CC6C33FB-C46C-4484-972C-C454743F8ADD}.Release|x86.ActiveCfg = Release|Any CPU
+		{CC6C33FB-C46C-4484-972C-C454743F8ADD}.Release|x86.Build.0 = Release|Any CPU
+		{3BA88C80-BA85-4063-AE3B-9005A1B568BC}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{3BA88C80-BA85-4063-AE3B-9005A1B568BC}.Debug|Any CPU.Build.0 = Debug|x64
+		{3BA88C80-BA85-4063-AE3B-9005A1B568BC}.Debug|x64.ActiveCfg = Debug|x64
+		{3BA88C80-BA85-4063-AE3B-9005A1B568BC}.Debug|x64.Build.0 = Debug|x64
+		{3BA88C80-BA85-4063-AE3B-9005A1B568BC}.Debug|x86.ActiveCfg = Debug|x86
+		{3BA88C80-BA85-4063-AE3B-9005A1B568BC}.Debug|x86.Build.0 = Debug|x86
+		{3BA88C80-BA85-4063-AE3B-9005A1B568BC}.Release|Any CPU.ActiveCfg = Release|x64
+		{3BA88C80-BA85-4063-AE3B-9005A1B568BC}.Release|Any CPU.Build.0 = Release|x64
+		{3BA88C80-BA85-4063-AE3B-9005A1B568BC}.Release|x64.ActiveCfg = Release|x64
+		{3BA88C80-BA85-4063-AE3B-9005A1B568BC}.Release|x64.Build.0 = Release|x64
+		{3BA88C80-BA85-4063-AE3B-9005A1B568BC}.Release|x86.ActiveCfg = Release|x86
+		{3BA88C80-BA85-4063-AE3B-9005A1B568BC}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1E3F00B9-F73D-459B-A8DB-310E97FEE18C} = {6C9AD151-7DA4-477B-A52C-FB883D9D1057}
+		{F11D78B0-4DF7-453C-854C-A87CA031EC84} = {6C9AD151-7DA4-477B-A52C-FB883D9D1057}
+		{FD5E73CA-FC41-4560-AFD9-2F5B8581B34D} = {6C9AD151-7DA4-477B-A52C-FB883D9D1057}
+		{891CD25D-05F9-4617-9280-C5E8F1511E34} = {6C9AD151-7DA4-477B-A52C-FB883D9D1057}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C2148F04-2CE1-4E0D-BEBF-ACD671D47ECE}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,102 @@
+;;*****************************************************************************
+;;
+;; Title:       TestConstants.Values.dbl
+;;
+;; Description: Test context class with static values that can be used to feed
+;;              data into unit tests.
+;;
+;;*****************************************************************************
+;; WARNING: GENERATED CODE!
+;; This file was code generated, but generally is set to be generated only one
+;; time and not replaced, so that you can edit the code in the file. It is a
+;; good idea to ensure that you have a backup of any changes that you make incase
+;; someone accidentally regenerates the file.
+;;*****************************************************************************
+
+import Microsoft.VisualStudio.TestTools.UnitTesting
+import Newtonsoft.Json
+import System.Collections.Generic
+import System.Net.Http
+
+namespace Services.Test
+
+    public static partial class TestConstants
+
+        static method TestConstants
+        proc
+
+            ;;------------------------------------------------------------
+            ;;Test data for Customer
+            ;;
+            GetCustomers_Count = 0
+            GetCustomer_CustomerNumber = 0
+            GetCustomer_Expand_REL_Orders_CustomerNumber = 0
+            GetCustomer_Expand_REL_Item_CustomerNumber = 0
+            GetCustomer_Expand_All_CustomerNumber = 0
+            GetCustomer_ByAltKey_State_State = ""
+            GetCustomer_ByAltKey_Zip_ZipCode = 0
+            GetCustomer_ByAltKey_PaymentTerms_PaymentTermsCode = ""
+            UpdateCustomer_CustomerNumber = 0
+
+            ;;------------------------------------------------------------
+            ;;Test data for Item
+            ;;
+            GetItems_Count = 0
+            GetItem_ItemNumber = 0
+            GetItem_Expand_REL_Vendor_ItemNumber = 0
+            GetItem_Expand_REL_OrderItems_ItemNumber = 0
+            GetItem_Expand_All_ItemNumber = 0
+            GetItem_ByAltKey_VendorNumber_VendorNumber = 0
+            GetItem_ByAltKey_Color_FlowerColor = ""
+            GetItem_ByAltKey_Size_Size = 0
+            GetItem_ByAltKey_Name_CommonName = ""
+            UpdateItem_ItemNumber = 0
+
+            ;;------------------------------------------------------------
+            ;;Test data for Order
+            ;;
+            GetOrders_Count = 0
+            GetOrder_OrderNumber = 0
+            GetOrder_Expand_REL_OrderItems_OrderNumber = 0
+            GetOrder_Expand_REL_Customer_OrderNumber = 0
+            GetOrder_Expand_All_OrderNumber = 0
+            GetOrder_ByAltKey_CustomerNumber_CustomerNumber = 0
+            GetOrder_ByAltKey_DateOrdered_DateOrdered = new DateTime()
+            GetOrder_ByAltKey_DateCompleted_DateCompleted = new DateTime()
+            UpdateOrder_OrderNumber = 0
+
+            ;;------------------------------------------------------------
+            ;;Test data for OrderItem
+            ;;
+            GetOrderItems_Count = 0
+            GetOrderItem_OrderNumber = 0
+            GetOrderItem_ItemNumber = 0
+            GetOrderItem_Expand_REL_Order_OrderNumber = 0
+            GetOrderItem_Expand_REL_Order_ItemNumber = 0
+            GetOrderItem_Expand_REL_Item_OrderNumber = 0
+            GetOrderItem_Expand_REL_Item_ItemNumber = 0
+            GetOrderItem_Expand_All_OrderNumber = 0
+            GetOrderItem_Expand_All_ItemNumber = 0
+            GetOrderItem_ByAltKey_ItemOrdered_ItemOrdered = 0
+            GetOrderItem_ByAltKey_DateShipped_DateShipped = new DateTime()
+            GetOrderItem_ByAltKey_InvoiceNumber_InvoiceNumber = 0
+            UpdateOrderItem_OrderNumber = 0
+            UpdateOrderItem_ItemNumber = 0
+
+            ;;------------------------------------------------------------
+            ;;Test data for Vendor
+            ;;
+            GetVendors_Count = 0
+            GetVendor_VendorNumber = 0
+            GetVendor_Expand_REL_Items_VendorNumber = 0
+            GetVendor_Expand_All_VendorNumber = 0
+            GetVendor_ByAltKey_State_State = ""
+            GetVendor_ByAltKey_Zip_ZipCode = 0
+            GetVendor_ByAltKey_PaymentTerms_PaymentTermsCode = ""
+            UpdateVendor_VendorNumber = 0
+
+        endmethod
+
+    endclass
+
+endnamespace

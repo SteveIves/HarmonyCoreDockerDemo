@@ -1,0 +1,160 @@
+﻿<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(SolutionDir)Common.props" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Configuration)' == '' ">x86</Platform>
+    <Name>TraditionalBridge</Name>
+    <StartupObject>&lt;Synergy Main&gt;</StartupObject>
+    <OutputName>host</OutputName>
+    <ProjectGuid>{3BA88C80-BA85-4063-AE3B-9005A1B568BC}</ProjectGuid>
+    <ProjectTypeGuids>{7B8CF543-378A-4EC1-BB1B-98E4DC6E6820};{BBD0F5D1-1CC4-42fd-BA4C-A96779C64378}</ProjectTypeGuids>
+    <OutputType>application</OutputType>
+    <DBL_qTrim>True</DBL_qTrim>
+    <DBL_qAlign>True</DBL_qAlign>
+    <EnableCommonProperties>True</EnableCommonProperties>
+    <CommonPropertiesFileLocation>..\Common.props</CommonPropertiesFileLocation>
+    <RootNamespace>TraditionalBridge</RootNamespace>
+    <ProjEnvVars>XFPL_SMCPATH=$(ProjectDir)MethodCatalog</ProjEnvVars>
+    <DBL_qRelaxed>False</DBL_qRelaxed>
+    <DBL_qRelaxedParam>False</DBL_qRelaxedParam>
+    <DBL_qRelaxedParamad>False</DBL_qRelaxedParamad>
+    <DBL_DisWarnOptCheck>True</DBL_DisWarnOptCheck>
+    <DBL_DisWarnOpt>316</DBL_DisWarnOpt>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <IncludeDebugInformation>true</IncludeDebugInformation>
+    <OutputPath>$(SolutionDir)EXE</OutputPath>
+    <UnevaluatedOutputPath>EXE:</UnevaluatedOutputPath>
+    <PlatformTarget>x86</PlatformTarget>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DebugOptimize>Debug</DebugOptimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <IncludeDebugInformation>true</IncludeDebugInformation>
+    <OutputPath>$(SolutionDir)EXE</OutputPath>
+    <UnevaluatedOutputPath>EXE:</UnevaluatedOutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DebugOptimize>Debug</DebugOptimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <IncludeDebugInformation>False</IncludeDebugInformation>
+    <OutputPath>$(SolutionDir)EXE</OutputPath>
+    <UnevaluatedOutputPath>EXE:</UnevaluatedOutputPath>
+    <PlatformTarget>x86</PlatformTarget>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DebugOptimize>Optimize</DebugOptimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <IncludeDebugInformation>False</IncludeDebugInformation>
+    <OutputPath>$(SolutionDir)EXE</OutputPath>
+    <UnevaluatedOutputPath>EXE:</UnevaluatedOutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DebugOptimize>Optimize</DebugOptimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="MakeMethods\" />
+    <Folder Include="MethodCatalog\" />
+    <Folder Include="OpenVMS" />
+    <Folder Include="source\" />
+    <Folder Include="source\bridge" />
+    <Folder Include="source\dispatchers" />
+    <Folder Include="source\methods" />
+    <Folder Include="source\models" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="launch">
+      <SubType>Content</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="launch.bat">
+      <SubType>Content</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MakeMethods\MakeFileAccessMethods.bat">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="MakeMethods\FileAccessMethods.tpl">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="MethodCatalog\smc.xml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="OpenVMS\BRIDGE.OPT">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="OpenVMS\BUILD.COM">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="OpenVMS\LAUNCH.COM">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="OpenVMS\REMOTE_DEBUG.COM">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="OpenVMS\SendToVMS.bat">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="OpenVMS\SendToVms.Settings.bat">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="OpenVMS\SETUP.COM">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="startService">
+      <SubType>Content</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="source\bridge\ArgumentDataDefinition.dbl" />
+    <Compile Include="source\bridge\CallbackDispatcher.dbl" />
+    <Compile Include="source\bridge\Convert.dbl" />
+    <Compile Include="source\bridge\DataObjectBase.dbl" />
+    <Compile Include="source\bridge\DataObjectMetadataBase.dbl" />
+    <Compile Include="source\bridge\FieldDataDefinition.dbl" />
+    <Compile Include="source\bridge\Json.dbl" />
+    <Compile Include="source\bridge\Logger.dbl" />
+    <Compile Include="source\bridge\RoutineDispatcher.dbl" />
+    <Compile Include="source\bridge\Serializer.dbl" />
+    <Compile Include="source\bridge\SerializerV11.dbl" />
+    <Compile Include="source\bridge\StringDictionary.dbl" />
+    <Compile Include="source\dispatchers\MethodDispatcher.dbl" />
+    <Compile Include="source\dispatchers\MyApiDispatcher.dbl" />
+    <Compile Include="source\dispatchers\MyApiMethodDispatchers.dbl" />
+    <Compile Include="source\methods\AddTwoNumbers.dbl" />
+    <Compile Include="source\methods\CustomerIO.dbl" />
+    <Compile Include="source\methods\GetEnvironment.dbl" />
+    <Compile Include="source\methods\GetLogicalName.dbl" />
+    <Compile Include="source\methods\ItemIO.dbl" />
+    <Compile Include="source\methods\OrderIO.dbl" />
+    <Compile Include="source\methods\OrderItemIO.dbl" />
+    <Compile Include="source\methods\VendorIO.dbl" />
+    <Compile Include="source\models\Customer.dbl" />
+    <Compile Include="source\models\CustomerMetaData.dbl" />
+    <Compile Include="source\models\Item.dbl" />
+    <Compile Include="source\models\ItemMetaData.dbl" />
+    <Compile Include="source\models\Order.dbl" />
+    <Compile Include="source\models\OrderItem.dbl" />
+    <Compile Include="source\models\OrderItemMetaData.dbl" />
+    <Compile Include="source\models\OrderMetaData.dbl" />
+    <Compile Include="source\models\Vendor.dbl" />
+    <Compile Include="source\models\VendorMetaData.dbl" />
+    <Compile Include="source\host.dbl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Repository\Repository.synproj">
+      <Name>Repository</Name>
+      <Project>{cc6c33fb-c46c-4484-972c-c454743f8add}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Synergex\dbl\Synergex.SynergyDE.Traditional.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

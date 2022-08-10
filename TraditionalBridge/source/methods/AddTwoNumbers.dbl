@@ -1,0 +1,18 @@
+;;*****************************************************************************
+;;
+;; Title:       AddTwoNumbers.dbl
+;;
+;; Description: An example routine being exposed by Traditional Bridge.
+;;              Returns the sum of two numbers.
+;;
+;;*****************************************************************************
+
+{xfMethod(interface="MyApi",elb="EXE:xfplMethods")}
+subroutine AddTwoNumbers
+    required in  number1, d28.10
+    required in  number2, d28.10
+    required out result,  d28.10
+proc
+    result = number1 + number2
+    xreturn
+endsubroutine

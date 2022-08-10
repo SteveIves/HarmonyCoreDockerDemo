@@ -1,0 +1,132 @@
+{
+  "CreatedWithToolVersion": "1.0",
+  "WrittenWithToolVersion": "1.0",
+  "RPSMFIL": "Repository\\bin\\Debug\\rpsmain.ism",
+  "RPSTFIL": "Repository\\bin\\Debug\\rpstext.ism",
+  "TraditionalBridge": {
+    "EnableXFServerPlusMigration": true,
+    "EnableSampleDispatchers": true,
+    "EnableOptionalParameters": true
+  },
+  "ServicesNamespace": "Services",
+  "ControllersNamespace": "Services.Controllers",
+  "ModelsNamespace": "Services.Models",
+  "ClientModelsNamespace": "Services.Test.Models",
+  "UnitTestsNamespace": "Services.Test.UnitTests",
+  "SelfHostNamespace": "Services.Host",
+  "TraditionalBridgeNamespace": "TraditionalBridge",
+  "DataFolder": "SampleData",
+  "SolutionFolder": "D:\\HarmonyCoreDemoIIS\\HarmonyCoreDemoIIS",
+  "APIDocsPath": "api-docs",
+  "APITitle": "Harmony Core Sample API",
+  "APIVersion": "1",
+  "APIDescription": "This environment presents an example of using Harmony Core to expose a collection of RESTful Web Service endpoints that allow you to interact with a small sample dataset.",
+  "APITerms": "Open Source",
+  "APIContactName": "Jodah Veloper",
+  "APIContactEmail": "jodah.veloper@synergexpsg.com",
+  "APILicenseName": "BSD 2-Clause",
+  "APILicenseUrl": "https://opensource.org/licenses/BSD-2-Clause",
+  "APIEnableQueryParams": "(MaxExpansionDepth=4)",
+  "ServerName": "localhost",
+  "ServerHttpPort": "8085",
+  "ServerHttpsPort": "8086",
+  "ServerBasePath": "odata",
+  "OAuthServer": "http://localhost:5000",
+  "OAuthApi": "api1",
+  "OAuthClient": "ro.client",
+  "OAuthSecret": "CBF7EBE6-D46E-41A7-903B-766A280616C3",
+  "OAuthTestUser": "jodah",
+  "OAuthTestPassword": "P@ssw0rd",
+  "SignalRPath": "/hub/myhub",
+  "TemplatesFolder": "Templates",
+  "ServicesFolder": "Services",
+  "ControllersFolder": "Services.Controllers",
+  "ModelsFolder": "Services.Models",
+  "SelfHostFolder": "Services.Host",
+  "UnitTestFolder": "Services.Test",
+  "IsolatedFolder": "Isolated",
+  "TraditionalBridgeFolder": "TraditionalBridge",
+  "ServicesProject": "Services",
+  "ControllersProject": "Services.Controllers",
+  "ModelsProject": "Services.Models",
+  "SelfHostProject": "Services.Host",
+  "UnitTestProject": "Services.Test",
+  "IsolatedProject": "Isolated",
+  "TraditionalBridgeProject": "TraditionalBridge",
+  "FullCollectionEndpoints": true,
+  "PrimaryKeyEndpoints": true,
+  "AlternateKeyEndpoints": true,
+  "CollectionCountEndpoints": true,
+  "IndividualPropertyEndpoints": true,
+  "PutEndpoints": true,
+  "PostEndpoints": true,
+  "PatchEndpoints": true,
+  "DeleteEndpoints": true,
+  "ODataSelect": true,
+  "ODataFilter": true,
+  "ODataOrderBy": true,
+  "ODataTop": true,
+  "ODataSkip": true,
+  "ODataRelations": true,
+  "GenerateSelfHost": true,
+  "CreateTestFiles": true,
+  "GeneratePostmanTests": true,
+  "GenerateUnitTests": true,
+  "GenerateOData": true,
+  "DisableFileLogicals": true,
+  "Authentication": true,
+  "CustomAuthentication": true,
+  "FieldSecurity": true,
+  "AdapterRouting": true,
+  "StoredProcedureRouting": true,
+  "CaseSensitiveUrls": true,
+  "CrossDomainBrowsing": true,
+  "IISSupport": true,
+  "FieldOverlays": true,
+  "AlternateFieldNames": true,
+  "ReadOnlyProperties": true,
+  "SmcSignalRHubs": true,
+  "ExtendedStructures": [
+    {
+      "Name": "CUSTOMERS",
+      "EnabledGenerators": [
+        "ModelGenerator",
+        "ODataGenerator",
+        "EFCoreGenerator"
+      ]
+    },
+    {
+      "Name": "ITEMS",
+      "EnabledGenerators": [
+        "ModelGenerator",
+        "ODataGenerator",
+        "EFCoreGenerator"
+      ]
+    },
+    {
+      "Name": "ORDERS",
+      "EnabledGenerators": [
+        "ModelGenerator",
+        "ODataGenerator",
+        "EFCoreGenerator"
+      ]
+    },
+    {
+      "Name": "ORDER_ITEMS",
+      "EnabledGenerators": [
+        "ModelGenerator",
+        "ODataGenerator",
+        "EFCoreGenerator"
+      ]
+    },
+    {
+      "Name": "VENDORS",
+      "EnabledGenerators": [
+        "ModelGenerator",
+        "ODataGenerator",
+        "EFCoreGenerator"
+      ]
+    }
+  ],
+  "ExtendedInterfaces": []
+}

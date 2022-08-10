@@ -1,0 +1,76 @@
+{
+  "CustomRelations": [
+    {
+      "FromStructure": "CUSTOMERS",
+      "FromKey": "CUSTOMER_NUMBER",
+      "ToStructure": "ORDERS",
+      "ToKey": "CUSTOMER_NUMBER",
+      "RelationName": "Orders",
+      "RequiresMatch": false
+    },
+    {
+      "FromStructure": "CUSTOMERS",
+      "FromKey": "FAVORITE_ITEM",
+      "ToStructure": "ITEMS",
+      "ToKey": "ITEM_NUMBER",
+      "RelationName": "Item",
+      "RequiresMatch": true
+    },
+    {
+      "FromStructure": "ITEMS",
+      "FromKey": "VENDOR_NUMBER",
+      "ToStructure": "VENDORS",
+      "ToKey": "VENDOR_NUMBER",
+      "RelationName": "Vendor",
+      "RequiresMatch": true
+    },
+    {
+      "FromStructure": "ITEMS",
+      "FromKey": "ITEM_NUMBER",
+      "ToStructure": "ORDER_ITEMS",
+      "ToKey": "ITEM_ORDERED",
+      "RelationName": "OrderItems",
+      "RequiresMatch": false
+    },
+    {
+      "FromStructure": "ORDERS",
+      "FromKey": "ORDER_NUMBER",
+      "ToStructure": "ORDER_ITEMS",
+      "ToKey": "ORDER_NUMBER_AND_LINE_ITEM",
+      "RelationName": "OrderItems",
+      "RequiresMatch": false
+    },
+    {
+      "FromStructure": "ORDERS",
+      "FromKey": "CUSTOMER_NUMBER",
+      "ToStructure": "CUSTOMERS",
+      "ToKey": "CUSTOMER_NUMBER",
+      "RelationName": "Customer",
+      "RequiresMatch": true
+    },
+    {
+      "FromStructure": "ORDER_ITEMS",
+      "FromKey": "ORDER_NUMBER_AND_LINE_ITEM",
+      "ToStructure": "ORDERS",
+      "ToKey": "ORDER_NUMBER",
+      "RelationName": "Order",
+      "RequiresMatch": true
+    },
+    {
+      "FromStructure": "ORDER_ITEMS",
+      "FromKey": "ITEM_ORDERED",
+      "ToStructure": "ITEMS",
+      "ToKey": "ITEM_NUMBER",
+      "RelationName": "Item",
+      "RequiresMatch": true
+    },
+    {
+      "FromStructure": "VENDORS",
+      "FromKey": "VENDOR_NUMBER",
+      "ToStructure": "ITEMS",
+      "ToKey": "VENDOR_NUMBER",
+      "RelationName": "Items",
+      "RequiresMatch": false
+    }
+  ]
+}

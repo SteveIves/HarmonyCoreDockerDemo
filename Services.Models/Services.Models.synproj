@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" DefaultTargets="restore;Build">
+  <Import Project="$(SolutionDir)Common.props" />
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <DefaultLanguageSourceExtension>.dbl</DefaultLanguageSourceExtension>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <Name>Services.Models</Name>
+    <ProjectGuid>{34B28205-9BD9-4238-84F0-6959C1F0AF5C}</ProjectGuid>
+    <EnableCommonProperties>True</EnableCommonProperties>
+    <Prefer32Bit>False</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\$(configuration)</OutputPath>
+    <UnevaluatedOutputPath>bin\$(configuration)</UnevaluatedOutputPath>
+    <DocumentationFile>bin\$(configuration)\Services.Models.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <UnevaluatedOutputPath>bin\$(configuration)</UnevaluatedOutputPath>
+    <OutputPath>bin\$(configuration)</OutputPath>
+    <DocumentationFile>bin\$(configuration)\Services.Models.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Harmony.Core">
+      <Version>6.0.9</Version>
+    </PackageReference>
+    <PackageReference Include="Harmony.Core.EF">
+      <Version>6.0.9</Version>
+    </PackageReference>
+    <PackageReference Include="Synergex.SynergyDE.Build">
+      <Version>22.3.1080</Version>
+    </PackageReference>
+    <PackageReference Include="Synergex.SynergyDE.synrnt">
+      <Version>12.1.1.3278</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppSettings.dbl" />
+    <Compile Include="Customer.dbl" />
+    <Compile Include="CustomerMetaData.dbl" />
+    <Compile Include="DbContext.dbl" />
+    <Compile Include="Item.dbl" />
+    <Compile Include="ItemMetaData.dbl" />
+    <Compile Include="MyApiServiceModels.dbl" />
+    <Compile Include="Order.dbl" />
+    <Compile Include="OrderItem.dbl" />
+    <Compile Include="OrderItemMetaData.dbl" />
+    <Compile Include="OrderMetaData.dbl" />
+    <Compile Include="Vendor.dbl" />
+    <Compile Include="VendorMetaData.dbl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Repository\Repository.synproj">
+      <Name>Repository</Name>
+      <Project>{cc6c33fb-c46c-4484-972c-c454743f8add}</Project>
+      <Private>True</Private>
+      <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,102 @@
+import System
+import System.Collections.Generic
+import System.Text
+import Microsoft.IdentityModel.Tokens
+import System.Security.Claims
+import System.IdentityModel.Tokens.Jwt
+
+namespace Services.Controllers
+
+    public static class AuthTools
+
+        public static method GetKey, [#]Byte
+            endparams
+        proc
+            ;TODO: DO NOT HARD CODE THIS LIKE THIS IN PRODUCTION!!!!!
+            mreturn Encoding.UTF8.Getbytes("put some really long and really secret key value here!!!")
+        endmethod
+
+        private static ourKey, @SymmetricSecurityKey, new SymmetricSecurityKey(GetKey())
+
+        public static method GetToken  ,string
+            aUser,          string
+            aTokenDuration  ,int
+            endparams
+
+            record
+                logical         ,a40
+                loglen          ,i4
+                tokdur          ,d8
+
+        proc
+
+            ;; token duration (hours)
+            data tokenDuration   ,int ,0
+
+            if (aTokenDuration > 0) then
+                tokenDuration = aTokenDuration
+            else
+            begin
+                xcall getlog('HARMONY_TOKEN_DURATION',logical,loglen)
+                if (loglen) then
+                begin
+                    tokdur = ^d(logical(1:loglen))
+                    tokenDuration = tokdur
+                    if (tokenDuration > 8767)
+                        tokenDuration = 8767 ;max is 1 year
+                end
+                else
+                    tokenDuration = 0
+                if(tokenDuration < 1)
+                begin
+                    using aTokenDuration select
+                    (-2),
+                        tokenDuration = 12 ;;Login()
+                    (),
+                        tokenDuration = 1 ;;LoginAs()
+                    endusing
+                end
+            end
+
+            ;;  Create Security key  using private key above:
+            ;;  not that latest version of JWT using Microsoft namespace instead of System
+            ;;  Also note that ourKey length should be >256b
+            ;;  so you have to make sure that your private key has a proper length
+            data credentials, @Microsoft.IdentityModel.Tokens.SigningCredentials, new SigningCredentials(ourKey, SecurityAlgorithms.HmacSha256Signature, SecurityAlgorithms.Sha256Digest)
+
+            ;data credentials, @Microsoft.IdentityModel.Tokens.SigningCredentials, new Microsoft.IdentityModel.Tokens.SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature)
+            ;;   Finally create a Token
+            ;data header = new JwtHeader(credentials)
+            ;; Some PayLoad that contain information about the  customer
+            ; data payload = new JwtPayload()
+            ;payload.AddClaim()
+            ;data claims = new Claim[#] { new Claim("token", %atrimtostring(readUser.USERNAME)) }
+            ;data secToken = new JwtSecurityToken((string)"RCC", (string)"RCCAPI", (@IEnumerable<Claim>)claims, ^null, credentials)
+
+            data handler = new JwtSecurityTokenHandler()
+
+            data ident = new ClaimsIdentity()
+
+            ident.AddClaim(new Claim("token", %atrimtostring(aUser)))
+            ;Add custom claims as necessary
+            ident.AddClaim(new Claim("username", %atrimtostring(aUser)))
+
+            data theFuture, DateTime, DateTime.Now.AddHours(tokenDuration)
+            data current,   DateTime, DateTime.Now.AddHours(-1)
+
+            data betterToken = handler.CreateJwtSecurityToken("MyCompany", "MyApiName", ident, new Nullable<DateTime>(current),new Nullable<DateTime>(theFuture), new Nullable<DateTime>(DateTime.Now), credentials, ^null)
+
+            ;;  Token to String so you can use it in your client
+            data tokenString = handler.WriteToken(betterToken)
+
+            ;data validatedToken, @SecurityToken
+            ;handler.ValidateToken(tokenString, new TokenValidationParameters() { IssuerSigningKey = securityKey }, validatedToken)
+
+            mreturn tokenString
+
+        endmethod
+
+    endclass
+
+endnamespace
+

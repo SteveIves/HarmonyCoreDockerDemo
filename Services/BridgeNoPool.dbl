@@ -1,0 +1,42 @@
+
+import System
+import System.Collections.Generic
+import System.Text
+import Harmony.Core.Context
+import Renci.SshNet
+
+namespace Services
+
+    ;;; <summary>
+    ;;; Using this alternate RemoteExternalContextPool disables the use of Traditional Bridge pooling,
+    ;;; for use only as a last resort in stateful environments where connections cannot be reused.
+    ;;; </summary>
+    public class BridgeNoPool<T(IContextBase, class)> extends RemoteExternalContextPool<T>
+
+        public method BridgeNoPool
+            targetOS, RemoteTargetOS
+            targetMachine, @string
+            username, @string
+            authentication, @AuthenticationMethod
+            targetCommand, @string
+            min, int
+            callTimeout, int
+            connectTimeout, int
+            stickySession, boolean
+            endparams
+            parent(targetOS, targetMachine, username, authentication, targetCommand, min, callTimeout, connectTimeout, stickySession)
+        proc
+                
+        endmethod
+
+        public override async method ReturnContext, void
+            context, T
+        proc
+            data pooledContext = ^as(context, @IPooledContextBase)
+            pooledContext?.Destroy()
+            mreturn
+        endmethod
+
+    endclass
+
+endnamespace

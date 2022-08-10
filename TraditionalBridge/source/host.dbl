@@ -1,0 +1,87 @@
+;;*****************************************************************************
+;;
+;; Title:       TraditionalBridgeHost.dbl
+;;
+;; Description: A program to host a Harmony Core Traditional Bridge environment
+;;              that exposes traditional Synergy business logic to a Harmony
+;;              Core RESTful web service
+;;
+;;*****************************************************************************
+
+import Harmony.TraditionalBridge
+import Json
+import TraditionalBridge
+import TraditionalBridge.Dispatchers
+
+main host
+
+    record
+        ttChan,             i4                      ;;Terminal channel number
+        length,             int                     ;;Length of a strin
+        tmpa,               a10                     ;;Temporary alpha variable
+        group now,          a20                     ;;Current date and time for log file name
+            datetimenow,    d14 @now
+        endgroup
+        logLevel,           int, 2                  ;;Logging level. 2 is normal logging, 6 is highest logging.
+        logFileName,        string                  ;;Log file name
+        dispatcher,         @SuperRoutineDispatcher ;;Message dispatcher instance
+    endrecord
+proc
+    try
+    begin
+        ;;Configure the environment and open the terminal channel.
+        ;;Remember this (STDIN) is the mechanism by which Harmony Core will send
+        ;;us requests, and is the mechanism by which we will issue responses.
+
+        xcall flags(1907050020)
+        open(ttChan=0,o,"TT:")
+
+        ;;Does the environment define the logging level?
+        getlog("HARMONY_LOG_LEVEL", tmpa, length)
+        if (length) then
+        begin
+            logLevel = %integer(tmpa)
+        end
+        else
+        begin
+            ;Levels are 1 to 6, 2 is normal logging, 6 is highest logging
+            logLevel = 2
+        end
+     
+        ;;Define the log file name
+        now = %datetime
+        logFileName = %string(^d(datetimenow),"XXXX-XX-XX_XX-XX-XX") + "_BRIDGE_" + %string(%jbno) + ".LOG"
+
+        ;;Initiate logging
+        Logger.Instance = new Logger(logFileName, logLevel, false)
+        
+        ;;Create a new instance of the main "dispather" class
+        dispatcher = new SuperRoutineDispatcher(MethodDispatcher.GetDispatchers())
+        
+        ;;Issue the "READY" message.
+        ;;Harmony Core looks for this and considers the connection active when it sees it
+        puts(ttChan, "READY" + %char(13)+ %char(10))
+
+        ;;Start dispatching requests
+        dispatcher.Dispatch(ttChan)
+
+    end
+    catch(ex, @Exception)
+    begin
+        ;;If anything failed, log an error if we can
+        if (Logger.Instance != ^null)
+        begin
+            Logger.Instance.Log("DISPATCHER EXITED with exception" + ex.ToString())
+        end
+    end
+    endtry
+    
+    ;;Close the log
+    if (Logger.Instance != ^null)
+    begin
+        Logger.Instance.CloseLog()
+    end
+
+    stop
+
+endmain

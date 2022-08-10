@@ -1,0 +1,15 @@
+;;*****************************************************************************
+;;
+;; Title:       GetEnvironment.dbl
+;;
+;; Description: An example routine being exposed by Traditional Bridge.
+;;              Returns the Synergy DBL version number and operating system.
+;;
+;;*****************************************************************************
+
+{xfMethod(interface="MyApi",elb="EXE:xfplMethods")}
+function GetEnvironment, string
+
+proc
+    freturn %versn
+endfunction

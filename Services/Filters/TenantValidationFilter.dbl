@@ -1,0 +1,112 @@
+
+import System
+import System.Collections.Generic
+import System.Text
+import Microsoft.AspNetCore.Http
+import Microsoft.AspNetCore.Mvc
+import Microsoft.AspNetCore.Mvc.Filters
+import Microsoft.Extensions.Primitives
+import System.Threading.Tasks
+import System.Security
+import System.Security.Claims
+import System.Linq
+
+namespace Services
+
+    ;;; <summary>
+    ;;; This ActionFilter can be plugged in to the ASP.NET pipeline
+    ;;; to validate that the user has access to the x-tenant-id
+    ;;; that they are requesting. If not an HTTP 401 (unauthorized)
+    ;;; is returned.
+    ;;; </summary>
+    public class TenantValidationFilter extends ActionFilterAttribute
+    
+        public override method OnActionExecutionAsync, @Task
+            context, @ActionExecutingContext 
+            next, @ActionExecutionDelegate 
+        proc
+            ;;These paths don't requie a tenant ID
+            data exceptions = "|/Authentication/GetToken|/odata/v1|/odata/v1/$metadata|/api-docs|/api|"
+
+            if (!(exceptions.Contains(String.Format("|{0}|",context.HttpContext.Request.Path))))
+            begin
+                ;; Get the identity (JWT) provided by the client in the Authorization header
+                data identity = ^as(context.HttpContext.User.Identity,ClaimsIdentity)
+
+                ;; Check we have a JWT and it has been authenticated
+                if (identity == ^null || !identity.IsAuthenticated) then
+                begin
+                    context.Result = new BadRequestResult()
+                end
+                else
+                begin
+                    ;; Check the JWT contains the claims we need
+                    data tmpClaim, @Claim
+                    data userName = identity.FindFirst("UserName")?.Value
+                    data defaultCompany = identity.FindFirst("DefaultCompany")?.Value
+                    data allowedCompanies = identity.FindFirst("AllowedCompanies")?.Value
+                    data languageCode = identity.FindFirst("LanguageCode")?.Value
+                    data tenantIdLength = Harmony.AspNetCore.MultiTenantProvider.TenantID?.Length ?? 0
+
+                    if (userName==^null || String.IsNullOrWhiteSpace(userName) 
+                    &    || defaultCompany==^null || String.IsNullOrWhiteSpace(defaultCompany)
+                    &    || allowedCompanies==^null || String.IsNullOrWhiteSpace(allowedCompanies) 
+                    &    || languageCode==^null || String.IsNullOrWhiteSpace(languageCode)
+                    &    || tenantIdLength!=3) then
+                    begin
+                        context.Result = new BadRequestResult()
+                    end
+                    else
+                    begin
+                        ;; The JWT is valid. If the multi tenant provicer can't give us a tenant id, then the user has no access
+                        if (Harmony.AspNetCore.MultiTenantProvider.TenantID == ^null)
+                            context.Result = new UnauthorizedResult()
+                    end
+                   
+                end
+            end
+
+            mreturn parent.OnActionExecutionAsync(context, next)
+
+        endmethod
+
+    endclass
+
+endnamespace
+
+
+;;;Get some basic data from the current context
+;data _httpContext, @HttpContext, context.HttpContext
+;data _request, @HttpRequest, _httpContext.Request
+;data _user, @ClaimsPrincipal, _httpContext.User
+;data headers, @IHeaderDictionary, _request.Headers
+;
+;;            ;; This checks the tenant ID against authorized tenants in the JWT.
+;;            ;; But we don't have a JWT yet!
+;;            if (_user != ^null && _user.Claims != ^null &&  _user.Claims.FirstOrDefault() != ^null)
+;;            begin
+;;                ;;Get the HTTP request headers
+;;                data headers, @IHeaderDictionary, _request.Headers
+;;
+;;                ;;Do we have an x-tenant-id header?
+;;                if (headers.ContainsKey("X-TENANT-ID"))
+;;                then
+;;                begin
+;;                    ;;Yes
+;;                    data envBranchStringValues, @StringValues, Headers["x-tenant-id"]
+;;                    data envBranchArray, [#]string, envBranchStringValues.ToArray()
+;;                    data requestedEnvBranch, string, envBranchArray[1]
+;;
+;;                    lambda authorizedTenantsFilter(aClaim) aClaim.Type.ToLower()=="authorized" && aClaim.Value==requestedEnvBranch
+;;
+;;                    ;Do any "authorized" claims batch the <env>_<branch> from x-tenant-id?
+;;                    if (!_user.Claims.Any(authorizedTenantsFilter))
+;;                    begin
+;;                        ;;No, return an HTTP 401 (Unauthorized)
+;;                        context.Result = new UnauthorizedResult()
+;;                    end
+;;                end
+;;                else context.Result = new NotFoundResult()   ;if they have not sent a tenant return not found
+;;            end
+;
+;

@@ -1,0 +1,435 @@
+;;*****************************************************************************
+;;
+;; Title:       StartupCustom.dbl
+;;
+;; Description: Custom startup code
+;;
+;;*****************************************************************************
+;; This code was hand crafted
+;;*****************************************************************************
+;; 
+
+import Harmony.AspNetCore
+import Harmony.AspNetCore.Context
+import Harmony.Core
+import Harmony.Core.Context
+import Harmony.Core.FileIO
+import Harmony.Core.Interface
+import Harmony.Core.Utility
+import Harmony.OData
+import Harmony.OData.Adapter
+import Microsoft.AspNetCore.Builder
+import Microsoft.AspNetCore.Hosting
+import Microsoft.AspNetCore.Http
+import Microsoft.AspNetCore.Mvc
+import Microsoft.AspNetCore.Mvc.Abstractions
+import Microsoft.AspNetCore.Mvc.ApiExplorer
+import Microsoft.AspNetCore.StaticFiles
+import Microsoft.AspNetCore.Builder
+import Microsoft.AspNetCore.Mvc.ApplicationModels
+import Microsoft.AspNetCore.OData
+import Microsoft.AspNetCore.OData.Extensions
+import Microsoft.AspNetCore.OData.Routing
+import Microsoft.AspNetCore.OData.Formatter
+import Microsoft.AspNetCore.Routing
+import Microsoft.Extensions.Configuration
+import Microsoft.Extensions.DependencyInjection
+import Microsoft.Extensions.DependencyInjection.Extensions
+import Microsoft.EntityFrameworkCore
+import Microsoft.Extensions.Configuration
+import Microsoft.Extensions.DependencyInjection
+import Microsoft.Extensions.DependencyInjection.Extensions
+import Microsoft.Extensions.Logging
+import Microsoft.Extensions.Options
+import Microsoft.Extensions.Primitives
+import Microsoft.Net.Http.Headers
+import Microsoft.OData
+import Microsoft.OData.Edm
+import Microsoft.OData.UriParser
+import Microsoft.OpenApi.Models
+import Renci.SshNet
+import Services.Filters
+import System.Collections.Generic
+import System.IO
+import System.Linq
+import System.Runtime.InteropServices
+import System.Text
+import System.Threading.Tasks
+import Services.Controllers
+import Services.Models
+import Swashbuckle.AspNetCore.Swagger
+
+namespace Services
+
+    public partial class Startup
+
+        private bridgeMode,         String
+        private bridgeOS,           RemoteTargetOS
+        private bridgeServer,       String
+        private bridgeUser,         String
+        private bridgePassword,     String
+        private bridgeCryptoKey,    String
+        private bridgeLogLevel,     String
+        private startCommand,       String
+        private poolSize,           int
+        private connectTimeout,     int
+        private callTimeout,        int
+        private usePooling,         boolean
+        private usePassword,        boolean
+
+        ;;; <summary>
+        ;;; Custom code called at the end of Startup.ConfigureServices
+        ;;; </summary>
+        partial method ConfigureServicesCustom, void
+            services, @IServiceCollection 
+        proc
+            ;;---------------------------------------------------------------------
+            ;; Put the environment variables from AppSettings.json into the environment
+             
+            data settings = _config.GetSection("AppSettings").Get<AppSettings>()
+            settings.ProcessEnvironmentVariables()
+
+            ;;------------------------------------------------------------------------
+            ;;Configure a custom primary key factory to provide new primary key
+            ;;values for entities created via POST operations
+
+            ;;Create a new parameter file
+            data parameterFile, string, "DAT:sysparams.ddf"
+            data tmpChn = 0
+            try
+            begin
+                open(tmpChn,i:r,parameterFile)
+                close tmpChn
+                xcall delet(parameterFile)
+            end
+            catch (e, @NoFileFoundException)
+            begin
+                nop
+            end
+            finally
+            begin
+                data sourceFile = parameterFile.ToLower().Replace(".ddf",".txt")
+                xcall copy(sourceFile,parameterFile,1)
+            end
+            endtry
+
+            services.AddScoped<IPrimaryKeyFactory,PrimaryKeyGenerator>()
+
+            ;;-----------------------------------------------------------------
+            ;; Register a custom FileSpecResolver class
+
+            ;services.AddSingleton<IFileChannelManager,MyFileSpecResolver>()
+            
+            ;;---------------------------------------------------------------------
+            ;; Configure the Traditional Bridge environment
+
+            bridgeMode = Environment.GetEnvironmentVariable("BRIDGE_MODE").ToUpper()
+
+            using bridgeMode select
+            ("LOCAL","REMOTE"),
+                nop
+            (), 
+                throw new ApplicationException("Invalid value for BRIDGE_MODE in AppSettings.json. Specify LOCAL or REMOTE.")
+            endusing
+             
+            using Environment.GetEnvironmentVariable("BRIDGE_SERVER_OS").ToUpper() select
+            ("WINDOWS"),
+                bridgeOS = RemoteTargetOS.Windows
+            ("LINUX"),
+                bridgeOS = RemoteTargetOS.Linux
+            ("UNIX"),
+                bridgeOS = RemoteTargetOS.Unix
+            ("VMS"),
+                bridgeOS = RemoteTargetOS.VMS
+            (), 
+                throw new ApplicationException("Invalid value for BRIDGE_SERVER_OS in AppSettings.jsonl. Specify WINDOWS, LINUX, UNIX or VMS.")
+            endusing
+
+            ;Read settings used by LOCAL and REMOTE
+
+            bridgeLogLevel  = Environment.GetEnvironmentVariable("BRIDGE_LOG_LEVEL")
+
+            if (!Int.TryParse(Environment.GetEnvironmentVariable("BRIDGE_POOL_SIZE"),poolSize))
+                poolSize = 4
+
+            if (bridgeMode == "REMOTE")
+            begin
+                ;Read settings used REMOTE only
+
+                bridgeServer    = Environment.GetEnvironmentVariable("BRIDGE_SERVER")
+                bridgeUser      = Environment.GetEnvironmentVariable("BRIDGE_USER")
+                bridgePassword  = Environment.GetEnvironmentVariable("BRIDGE_PASSWORD")
+                bridgeCryptoKey = Environment.GetEnvironmentVariable("BRIDGE_CRYPTO_KEY")
+
+                if (!Int.TryParse(Environment.GetEnvironmentVariable("BRIDGE_CONNECT_TIMEOUT"),connectTimeout))
+                    connectTimeout = 600000
+
+                if (!Int.TryParse(Environment.GetEnvironmentVariable("BRIDGE_CALL_TIMEOUT"),callTimeout))
+                    callTimeout = 100000
+
+                using Environment.GetEnvironmentVariable("BRIDGE_POOLING").ToUpper() select
+                ("ENABLED"),
+                    usePooling = true
+                ("DISABLED"),
+                    usePooling = false
+                (),
+                    throw new ApplicationException("Invalid value for BRIDGE_POOLING in AppSettings.json. Specify ENABLED or DISABLED.")
+                endusing
+
+                using Environment.GetEnvironmentVariable("BRIDGE_AUTH_MODE").ToUpper() select
+                ("PASSWORD"),
+                    usePassword = true
+                ("CRYPTO_KEY"),
+                    usePassword = false
+                (),
+                    throw new ApplicationException("Invalid value for BRIDGE_AUTH_MODE in AppSettings.json. Specify PASSWORD or CRYPTO_KEY")
+                endusing
+            end
+
+            using bridgeMode select
+            ("LOCAL"),
+            begin
+                ;Report local operating mode
+                Console.WriteLine("Bridge mode           LOCAL")
+                Console.WriteLine("Bridge logging level  {0}",bridgeLogLevel)
+
+                data traditionalBridgeDirectory, string
+
+                if (_env.IsDevelopment()) then
+                begin
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) then
+                        traditionalBridgeDirectory = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(^typeof(Startup).Assembly.Location),"..\..\..\..\TraditionalBridge\EXE"))
+                    else
+                        traditionalBridgeDirectory = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(^typeof(Startup).Assembly.Location),"../../../../TraditionalBridge/EXE"))
+                end
+                else
+                begin
+                    traditionalBridgeDirectory = Path.GetFullPath(Path.GetDirectoryName(^typeof(Startup).Assembly.Location))
+                end
+
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) then
+                begin
+                    startCommand = Path.Combine(traditionalBridgeDirectory,"launch.bat")
+                end
+                else
+                begin
+                    startCommand = Path.Combine(traditionalBridgeDirectory,"launch")
+                end
+
+                data startParameters = String.Format("{0}",bridgeLogLevel)
+
+                data contextPool, @ExternalContextPool<MyApiService>, new ExternalContextPool<MyApiService>
+                &    (
+                &    startCommand,
+                &    startParameters,
+                &    traditionalBridgeDirectory,
+                &    ^null,
+                &    poolSize
+                &    ) 
+
+                ;;Add DI service
+                services.AddSingleton<IContextFactory<MyApiService>>(contextPool)
+            end
+            ("REMOTE"),
+            begin
+                ;Report remote operating mode
+                Console.WriteLine("Bridge mode           REMOTE {0}@{1}",bridgeUser,bridgeServer)
+                Console.WriteLine("Bridge logging level  {0}",bridgeLogLevel)
+
+                using bridgeOS select
+                (RemoteTargetOS.Windows),
+                    startCommand = "launch.bat"
+                (RemoteTargetOS.Linux),
+                    startCommand = "launch"
+                (RemoteTargetOS.VMS),
+                    startCommand = "launch.com"
+                endusing
+
+                ;; Command to send to remote server to start a new connection.
+                startCommand    = String.Format("{0} {1}",startCommand,bridgeLogLevel)
+
+                if (usePooling) then
+                begin
+                    data poolContext, @RemoteExternalContextPool<MyApiService>
+
+                    if (usePassword) then
+                    begin
+                        ;; ----------------------------------------------------------------------------
+                        ;; Pooled connection authenticated via username and password
+                        ;;
+                        poolContext = new RemoteExternalContextPool<MyApiService>
+                        &    (
+                        &    bridgeOS,
+                        &    bridgeServer,
+                        &    bridgeUser,
+                        &    new Renci.SshNet.PasswordAuthenticationMethod(bridgeUser,bridgePassword),
+                        &    startCommand,
+                        &    poolSize,
+                        &    callTimeout,
+                        &    connectTimeout
+                        &    ) 
+                    end
+                    else
+                    begin
+                        ;; ----------------------------------------------------------------------------
+                        ;; Pooled connection authenticated via username and cryptographic key
+                        ;;
+                        data keyFiles = new PrivateKeyFile[#] { new PrivateKeyFile(bridgeCryptoKey) }
+                        poolContext = new RemoteExternalContextPool<MyApiService>
+                        &    (
+                        &    bridgeOS,
+                        &    bridgeServer,
+                        &    bridgeUser,
+                        &    new PrivateKeyAuthenticationMethod(bridgeUser, keyFiles),
+                        &    startCommand,
+                        &    poolSize,
+                        &    callTimeout,
+                        &    connectTimeout
+                        &    ) 					
+                    end
+
+                    ;;Add DI service
+                    services.AddSingleton<IContextFactory<MyApiService>>(poolContext)
+                end
+                else
+                begin
+                    ;;No pooling
+                    data nonPoolContext, @BridgeNoPool<MyApiService>
+
+                    if (usePassword) then
+                    begin
+                        ;; ----------------------------------------------------------------------------
+                        ;; Non-pooled connection authenticated via username and password
+                        ;;
+                        nonPoolContext = new BridgeNoPool<MyApiService>
+                        &    (
+                        &    bridgeOS,
+                        &    bridgeServer,
+                        &    bridgeUser,
+                        &    new Renci.SshNet.PasswordAuthenticationMethod(bridgeUser,bridgePassword),
+                        &    startCommand,
+                        &    poolSize,
+                        &    callTimeout,
+                        &    connectTimeout,
+                        &    false) 
+                    end
+                    else
+                    begin
+                        ;; ----------------------------------------------------------------------------
+                        ;; Non-pooled connection authenticated via username and cryptographic key
+                        ;;
+                        data keyFiles = new PrivateKeyFile[#] { new PrivateKeyFile(bridgeCryptoKey) }
+                        nonPoolContext = new BridgeNoPool<MyApiService>
+                        &    (
+                        &    bridgeOS,
+                        &    bridgeServer,
+                        &    bridgeUser,
+                        &    new PrivateKeyAuthenticationMethod(bridgeUser, keyFiles),
+                        &    startCommand,
+                        &    poolSize,
+                        &    callTimeout,
+                        &    connectTimeout,
+                        &    false
+                        &    ) 
+                    end
+
+                    ;;Add DI service
+                    services.AddSingleton<IContextFactory<MyApiService>>(nonPoolContext)
+                end
+            end
+            endusing
+
+            ;;Add the traditional bridge service as a DI service
+            services.AddContextPool<MyApiService>()
+
+            Console.WriteLine("")
+
+        endmethod
+
+        ;;; <summary>
+        ;;; Custom code called at the end of Startup.Configure
+        ;;; </summary>
+        ;;; <param name="app">IApplicationBuilder component that configures the request pipeline by having middleware added to it.</param>
+        ;;; <param name="env">IHostingEnvironment that exposes information about the environment that is hosting the application.</param>
+        partial method ConfigureCustom, void
+            required in app, @IApplicationBuilder
+            required in env, @IHostingEnvironment
+        proc
+
+            ;; ------------------------------------------------------------------------------------
+            ;;Map URL routes to SignalR hubs
+
+            ;lambda mapRoutes(route)
+            ;begin
+            ;    route.MapHub<aspHub>(new PathString("/hub/asp"))
+            ;end
+
+            ;app.UseSignalR(mapRoutes)
+
+        endmethod
+
+;        ;;; <summary>
+;        ;;; Custom code called from Startup.Configure before MVC is enabled
+;        ;;; </summary>
+;        ;;; <param name="app">IApplicationBuilder component that configures the request pipeline by having middleware added to it.</param>
+;        ;;; <param name="env">IHostingEnvironment that exposes information about the environment that is hosting the application.</param>
+;        partial method ConfigureCustomBeforeMvc, void
+;            required in app, @IApplicationBuilder
+;            required in env, @IHostingEnvironment
+;        proc
+;            app.UseMultiTenancy(GetTenantId)
+;        endmethod
+
+;        ;;; <summary>
+;        ;;; Returns the current Tenand ID
+;        ;;; </summary>
+;        ;;; <param name="httpCtx"></param>
+;        ;;; <returns></returns>
+;        private method GetTenantId, string
+;            required in context, @HttpContext
+;        proc
+;            ; Do we have a JWT?
+;            data identity = ^as(context.User.Identity,ClaimsIdentity)
+;            data defaultCompany = identity?.FindFirst("DefaultCompany")?.Value
+;            data allowedCompanies = identity?.FindFirst("AllowedCompanies")?.Value
+;
+;            ;;Do we have an x-tenant-id header?
+;            data xTenantId, string
+;            data xTenantIdValues, StringValues
+;            if(context.Request.Headers.TryGetValue("X-TENANT-ID", xTenantIdValues) && xTenantIdValues.Count == 1)
+;            begin
+;                xTenantId = xTenantIdValues.ToArray().First().ToUpper()
+;            end
+;
+;            ;;If we have x-tenant-id and it specifies a company the user has access to, use it.
+;            if (!String.IsNullOrWhiteSpace(xTenantId)
+;            &    && !String.IsNullOrWhiteSpace(defaultCompany) 
+;            &    && !String.IsNullOrWhiteSpace(allowedCompanies) 
+;            &    && String.Format(",{0},",allowedCompanies).Contains(String.Format(",{0},",xTenantId))) then
+;            begin
+;                mreturn xTenantId
+;            end
+;            else if (!String.IsNullOrWhiteSpace(defaultCompany))
+;            begin
+;                ;;Otherwise, use the users default company
+;                mreturn defaultCompany
+;            end
+;
+;            mreturn ^null
+;
+;        endmethod
+
+        ;;; <summary>
+        ;;; Custom MVC Configuration code
+        ;;; </summary>
+        ;;; <param name="options">MVC Options</param>
+        partial method MvcConfigCustom, void
+            options, @MvcOptions
+        proc
+            ;options.Filters.Add(^typeof(TenantValidationFilter))
+            options.Filters.Add(^typeof(ModelStateValidationFilter))
+        endmethod
+
+    endclass
+
+endnamespace

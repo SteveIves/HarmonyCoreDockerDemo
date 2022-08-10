@@ -1,0 +1,45 @@
+
+# Ignore specific file extensions anywhere in the tree
+
+*.chw
+*.dbp
+*.ddf
+*.dll
+*.exe
+*.exe.config
+*.g.resources
+*.in
+*.ism
+*.is1
+*.log
+*.nupkg
+*.pdb
+*.resources
+*.suo
+*.user
+
+# Ignore specific folders anywhere in the tree
+
+**/.intellisense
+**/.vs
+**/bin
+**/obj
+
+# Ignore specific folders
+
+Documentation/Web Help
+DotNetCore/distribution
+OutputFiles
+/packages
+
+# Ignore specific files
+
+/UpgradeLog.htm
+/PUBLISH
+/TraditionalBridge/EXE
+/regen_last.bat
+/Publish.Settings.bat
+/DeployToIIS.Settings.bat
+*.zip
+/TraditionalBridge/OpenVMS/SendToVms.Settings.bat
+/.vscode

@@ -1,0 +1,36 @@
+
+import System
+import System.Collections.Generic
+import System.Text
+import Microsoft.AspNetCore.Http
+import Microsoft.AspNetCore.Mvc
+import Microsoft.AspNetCore.Mvc.Filters
+import Microsoft.Extensions.Primitives
+import System.Threading.Tasks
+import System.Security
+import System.Security.Claims
+import System.Linq
+
+namespace Services.Filters
+
+	;;; <summary>
+	;;; This ActionFilter can be plugged in to the ASP.NET pipeline
+	;;; to validate all inbound models. If a model is found to be
+	;;; invlaid then an HTTP 400 (Bad request) is returned to the client.
+	;;; </summary>
+	public class ModelStateValidationFilter extends ActionFilterAttribute
+
+		public override method OnActionExecutionAsync, @Task
+			context, @ActionExecutingContext 
+			next, @ActionExecutionDelegate 
+		proc
+			if (!context.ModelState.IsValid)
+			begin
+				context.Result = new BadRequestObjectResult(context.ModelState)
+			end
+			mreturn parent.OnActionExecutionAsync(context, next)
+		endmethod
+
+	endclass
+
+endnamespace

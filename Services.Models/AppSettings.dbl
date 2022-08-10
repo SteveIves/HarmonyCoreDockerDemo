@@ -1,0 +1,55 @@
+;;*****************************************************************************
+;;
+;; Title:       AppSettings.dbl
+;;
+;; Description: Represents the application settings as defined in appsettings.json
+;;
+;;*****************************************************************************
+
+import System
+import System.Collections.Generic
+import System.Text
+import Microsoft.Extensions.Options
+
+namespace Services.Models
+
+    ;;; <summary>
+    ;;; Application settings.
+    ;;; </summary>
+    public partial class AppSettings implements IOptions<AppSettings>
+
+        ;;; <summary>
+        ;;; A collection of environment variables as required at runtime by the application.
+        ;;; These environment variables will be established via the ProcessEnvironmentVariables
+        ;;; method below.
+        ;;; </summary>
+        public readwrite property EnvironmentVariables, @Dictionary<string,string>, new Dictionary<string, string>()
+
+        public virtual property Value, @AppSettings
+            method get
+            proc
+                mreturn this
+            endmethod
+        endproperty
+
+        ;;; <summary>
+        ;;; This method is called by the AppSettingsMonitor to initially set the emvironment variables,
+        ;;; and also to reset the values of environment variables if the application configuration
+        ;;; changes.
+        ;;; </summary>
+        public method ProcessEnvironmentVariables, void
+        proc
+            if (EnvironmentVariables.Count > 0)
+            begin
+                data ev, @KeyValuePair<string,string>
+                foreach ev in EnvironmentVariables
+                begin
+                    data sts, int
+                    xcall setlog(ev.Key,ev.Value,sts)
+                end
+            end
+        endmethod
+
+    endclass
+
+endnamespace

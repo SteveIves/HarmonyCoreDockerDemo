@@ -1,0 +1,53 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" DefaultTargets="restore;Build">
+  <Import Project="$(SolutionDir)Common.props" />
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <DefaultLanguageSourceExtension>.dbl</DefaultLanguageSourceExtension>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <Name>Services.Isolated</Name>
+    <ProjectGuid>{15223F07-0941-46E8-9C2F-9924D7FFA678}</ProjectGuid>
+    <EnableCommonProperties>True</EnableCommonProperties>
+    <Prefer32Bit>False</Prefer32Bit>
+    <GenerateMvcApplicationPartsAssemblyAttributes>false</GenerateMvcApplicationPartsAssemblyAttributes>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\$(configuration)</OutputPath>
+    <UnevaluatedOutputPath>bin\$(configuration)</UnevaluatedOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <UnevaluatedOutputPath>bin\$(configuration)</UnevaluatedOutputPath>
+    <OutputPath>bin\$(configuration)</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Harmony.Core">
+      <Version>6.0.9</Version>
+    </PackageReference>
+    <PackageReference Include="Synergex.SynergyDE.Build">
+      <Version>22.3.1080</Version>
+    </PackageReference>
+    <PackageReference Include="Synergex.SynergyDE.synrnt">
+      <Version>12.1.1.3278</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IsolatedMethods.dbl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Repository\Repository.synproj">
+      <Name>Repository</Name>
+      <Project>{cc6c33fb-c46c-4484-972c-c454743f8add}</Project>
+      <Private>True</Private>
+      <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\Services.Controllers\Services.Controllers.synproj">
+      <Name>Services.Controllers</Name>
+      <Project>{1BD1F1A5-C3BE-4E9C-AC55-ABE12BFB118E}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Services.Models\Services.Models.synproj">
+      <Name>Services.Models</Name>
+      <Project>{34B28205-9BD9-4238-84F0-6959C1F0AF5C}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
+</Project>
