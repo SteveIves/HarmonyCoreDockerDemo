@@ -31,8 +31,6 @@ RUN apt install -y --no-install-recommends aspnetcore-runtime-6.0
 # Download and install Synergy
 ARG LM_HOST
 WORKDIR /tmp/sdeinst
-#RUN wget --quiet https://s3.amazonaws.com/media.synergex.com/prod/428SDE1211-3278.a -O installer.a
-#RUN wget --quiet https://gist.githubusercontent.com/hippiehunter/0819817f8f17cfa2d32b14f0b3f3b9c2/raw/0817e559286ddbd9427534b094d70e72d68dac56/install.auto
 COPY 428SDE1211-3278.a 428SDE1211-3278.a
 COPY install.auto install.auto
 RUN umask 0

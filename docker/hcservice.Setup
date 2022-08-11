@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ ! -e 428SDE1211-3278.a ]
+then
+    echo -e "\nDownloading Synergy 12.1.1.3278\n"
+    wget --quiet https://s3.amazonaws.com/media.synergex.com/prod/428SDE1211-3278.a
+fi
+
 # Build parameters
 export BUILD_PARAMS=LM_HOST
 
