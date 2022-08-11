@@ -15,8 +15,7 @@ ENV ASPNETCORE_Kestrel__Certificates__Default__Password=
 # Install the packages we need in the container
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt update
-RUN apt install -y apt-transport-https apt-utils bash ca-certificates cpio dos2unix \
-dumb-init gdb git gzip iproute2 iputils-ping libtinfo6 sudo tar unzip vim wget
+RUN apt install -y apt-transport-https apt-utils bash cpio dumb-init unzip wget
 
 # Install the Microsoft package feed
 RUN wget -q https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
