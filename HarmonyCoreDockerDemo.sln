@@ -112,6 +112,31 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TypeScript", "TypeScript", 
 		Templates\TypeScript\TypeScriptInterfaceStructures.tpl = Templates\TypeScript\TypeScriptInterfaceStructures.tpl
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{D308B6D8-6B58-4034-A6FD-6D2D4CF4D04E}"
+	ProjectSection(SolutionItems) = preProject
+		docker\hcservice.Dockerfile = docker\hcservice.Dockerfile
+		docker\hcservice.Setup = docker\hcservice.Setup
+		docker\install.auto = docker\install.auto
+		docker\hcservice.Startup = docker\hcservice.Startup
+		docker\setup = docker\setup
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bin", "bin", "{0F7FDCDD-1E6F-4F28-B46F-B9E990A8DFF6}"
+	ProjectSection(SolutionItems) = preProject
+		docker\bin\build = docker\bin\build
+		docker\bin\cleanup = docker\bin\cleanup
+		docker\bin\connect = docker\bin\connect
+		docker\bin\containers = docker\bin\containers
+		docker\bin\images = docker\bin\images
+		docker\bin\pull = docker\bin\pull
+		docker\bin\push = docker\bin\push
+		docker\bin\rebuild = docker\bin\rebuild
+		docker\bin\show = docker\bin\show
+		docker\bin\start = docker\bin\start
+		docker\bin\stop = docker\bin\stop
+		docker\bin\stopall = docker\bin\stopall
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -215,6 +240,7 @@ Global
 		{F11D78B0-4DF7-453C-854C-A87CA031EC84} = {6C9AD151-7DA4-477B-A52C-FB883D9D1057}
 		{FD5E73CA-FC41-4560-AFD9-2F5B8581B34D} = {6C9AD151-7DA4-477B-A52C-FB883D9D1057}
 		{891CD25D-05F9-4617-9280-C5E8F1511E34} = {6C9AD151-7DA4-477B-A52C-FB883D9D1057}
+		{0F7FDCDD-1E6F-4F28-B46F-B9E990A8DFF6} = {D308B6D8-6B58-4034-A6FD-6D2D4CF4D04E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C2148F04-2CE1-4E0D-BEBF-ACD671D47ECE}

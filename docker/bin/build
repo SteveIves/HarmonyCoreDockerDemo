@@ -3,7 +3,7 @@
 # Check we have a parameter which should be an image name
 if [ -z "$1" ]
 then
-    echo -e "\nERROR: Specify image name as parameter 1\n"
+    echo -e "\nUsage: build <image_name>\n"
     return 2> /dev/null; exit
 fi
 

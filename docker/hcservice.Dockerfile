@@ -43,8 +43,8 @@ WORKDIR /
 
 # Provide the script that dumb-init will execute on startup
 WORKDIR /root
-COPY container_start /root/container_start
-RUN chmod +x /root/container_start
+COPY hcservice.Startup /root/hcservice.Startup
+RUN chmod +x /root/hcservice.Startup
 
 # Make a directory to put the Harmony Core files in
 WORKDIR /root/service
@@ -64,7 +64,7 @@ RUN echo export TERM=vt100 >> .bashrc
 RUN echo source /synergyde/setsde >> .bashrc
 
 # Run the startup script
-CMD ["/bin/bash", "-c", "/root/container_start $LM_HOST $ASPNETCORE_ENVIRONMENT $ASPNETCORE_URLS $ASPNETCORE_HTTPS_PORT $ASPNETCORE_Kestrel__Certificates__Default__Path $ASPNETCORE_Kestrel__Certificates__Default__Password $TERM"]
-# Note: In Windows 11 the environment variables are propagated into the container_start script
+CMD ["/bin/bash", "-c", "/root/hcservice.Startup $LM_HOST $ASPNETCORE_ENVIRONMENT $ASPNETCORE_URLS $ASPNETCORE_HTTPS_PORT $ASPNETCORE_Kestrel__Certificates__Default__Path $ASPNETCORE_Kestrel__Certificates__Default__Password $TERM"]
+# Note: In Windows 11 the environment variables are propagated into the hcservice.Startup script
 # and can be used there. But in Windows 10 that doesn't appear to happen, so we must pass everything
-# to the container_start script via command line parameters!
+# to the hcservice.Startup script via command line parameters!

@@ -44,3 +44,4 @@ OutputFiles
 *.zip
 /TraditionalBridge/OpenVMS/SendToVms.Settings.bat
 /.vscode
+*.a

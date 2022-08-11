@@ -3,7 +3,7 @@
 # Check we have a parameter which should be a container name
 if [ -z "$1" ]
 then
-    echo -e "\nERROR: Specify container name as parameter 1\n"
+    echo -e "\nUsage: connect <container_name_or_id>\n"
     return 2> /dev/null; exit
 fi
 
