@@ -4,19 +4,6 @@ echo "INFO: Executing script hcservice.Startup"
 
 cd /root
 
-# Propagate environment variables into the environment for subsequent processes
-#echo LM_HOST=$1 >> /etc/environment
-#echo ASPNETCORE_ENVIRONMENT=$2 >> /etc/environment
-#echo ASPNETCORE_URLS=$3 >> /etc/environment
-#echo ASPNETCORE_HTTPS_PORT=$4 >> /etc/environment
-#echo ASPNETCORE_Kestrel__Certificates__Default__Path=$5 >> /etc/environment
-#echo ASPNETCORE_Kestrel__Certificates__Default__Password=$6 >> /etc/environment
-#echo TERM=$7 >> /etc/environment
-# Note: In Windows 11 the environment variables are propagated into the this script and can be
-# used here. But in Windows 10 that doesn't appear to happen, so we must pass everything via
-# command line parameters! For Windows 11 the above echo commands would be like:
-# echo LM_HOST=$LM_HOST >> /etc/environment
-
 # Configure a Synergy environment
 echo "INFO: Setting Synergy environment"
 source /synergyde/setsde

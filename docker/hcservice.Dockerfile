@@ -11,7 +11,6 @@ ENV ASPNETCORE_URLS=
 ENV ASPNETCORE_HTTPS_PORT=
 ENV ASPNETCORE_Kestrel__Certificates__Default__Path=
 ENV ASPNETCORE_Kestrel__Certificates__Default__Password=
-ENV TERM=vt100
 
 # Install the packages we need in the container
 ARG DEBIAN_FRONTEND=noninteractive
@@ -64,7 +63,7 @@ RUN echo export TERM=vt100 >> .bashrc
 RUN echo source /synergyde/setsde >> .bashrc
 
 # Run the startup script
-CMD ["/bin/bash", "-c", "/root/hcservice.Startup $LM_HOST $ASPNETCORE_ENVIRONMENT $ASPNETCORE_URLS $ASPNETCORE_HTTPS_PORT $ASPNETCORE_Kestrel__Certificates__Default__Path $ASPNETCORE_Kestrel__Certificates__Default__Password $TERM"]
+CMD ["/bin/bash", "-c", "/root/hcservice.Startup $LM_HOST"]
 # Note: In Windows 11 the environment variables are propagated into the hcservice.Startup script
 # and can be used there. But in Windows 10 that doesn't appear to happen, so we must pass everything
 # to the hcservice.Startup script via command line parameters!
