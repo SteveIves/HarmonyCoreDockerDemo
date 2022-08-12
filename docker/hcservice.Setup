@@ -38,7 +38,6 @@ export ASPNETCORE_Kestrel__Certificates__Default__Path=/root/.aspnet/https/Servi
 export ASPNETCORE_Kestrel__Certificates__Default__Password="p@ssw0rd"
 
 # Runtime port mappings
-export PORT_MAPPINGS=SSH_PORT,HTTP_PORT,HTTPS_PORT
-export SSH_PORT=2022:22
+export PORT_MAPPINGS=HTTP_PORT,HTTPS_PORT
 export HTTP_PORT=8085:8085
 export HTTPS_PORT=8086:8086
