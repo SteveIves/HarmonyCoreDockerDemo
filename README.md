@@ -200,16 +200,18 @@ work with the docker build process, images and containers. These scripts
 are:
 
 ## build \<imagename\>
-Executes \<imagename\>.Setup to configure appropriate settings then processes
-\<imagename\>.Dockerfile to produce a Docker image named \<imagename\>.
+Executes `\<imagename\>.Setup` to configure appropriate settings then processes
+`\<imagename\>.Dockerfile` to produce a Docker image named `\<imagename\>`.
 
 ## rebuild \<imagename\>
 Like build but the local image cache is not used so a full rebuild of the
 image takes place.
 
 ## start \<imagename\> [attach]
-Executes \<imagename\>.Setup to configure appropriate settings then runs 
-the image \<imagename\> in a container.
+Executes `\<imagename\>.Setup` to configure appropriate settings then runs 
+the image `\<imagename\>` in a container. The container will be assigned a
+unique ID as well as a random name, both of which can be used to interact
+with it.
 
 ## images
 Lists all Docker images that currently exist
