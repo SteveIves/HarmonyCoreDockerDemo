@@ -1,8 +1,12 @@
 ![Harmony Core Logo](https://github.com/Synergex/HarmonyCore/wiki/images/logo.png)
 
+# Introduction
+
 This repository contains an example Harmony Core service, as well as
 an example of how to deploy the service in a Docker container under
 Ubuntu Linux.
+
+# Requirements
 
 To build, deploy and run this example you will need a reasonbably
 well equipped Windows development PC (Docker LOVES memory) with the
@@ -20,6 +24,19 @@ following:
   I tested with Ubuntu 22.04 but 20.04 should work also.
 * Docker desktop installed, running in WSL2 integrated mode, and
   integrated wiht the Ubuntu WSL2 machine environment.
+
+**NOTE:** This demonstration assumes that you have a Synergy License
+Server running on your Windows PC and that there is at least two
+available runtime licenses (e.g. RUN12). If this is not the case then
+you must export an environment variable in your WSL2 environment that
+specifies the IP address of the Synergy License Server to use. For
+example:
+```
+  export LM_HOST=w.x.y.z
+```
+This must be in place BEFORE using the `build` or `start` scrips on Linux.
+
+# Procedure
 
 After cloning this repository, the steps to run the demonstration
 are as follows:
