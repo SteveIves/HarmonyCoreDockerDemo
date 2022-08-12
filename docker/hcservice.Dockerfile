@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+# Make bash the default shell for RUN commands and others
 SHELL ["/bin/bash", "-c"]
 
 # In order to be able to set environment variables from the "docker run" command
@@ -12,10 +12,14 @@ ENV ASPNETCORE_HTTPS_PORT=
 ENV ASPNETCORE_Kestrel__Certificates__Default__Path=
 ENV ASPNETCORE_Kestrel__Certificates__Default__Password=
 
-# Install the packages we need in the container
+# This puts the apt utility into "noninteractive" mode, where it takes the default answer
+# for all questions and is totally silent
 ARG DEBIAN_FRONTEND=noninteractive
+
+# Install the packages we need in the container
 RUN apt update
-RUN apt install -y apt-transport-https apt-utils bash cpio dumb-init unzip wget
+RUN apt install -y apt-transport-https bash cpio dumb-init unzip wget
+#apt-utils
 
 # Install the Microsoft package feed
 RUN wget -q https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
@@ -62,6 +66,7 @@ RUN echo export TERM=vt100 >> .bashrc
 RUN echo source /synergyde/setsde >> .bashrc
 
 # Run the startup script
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 CMD ["/bin/bash", "-c", "/root/hcservice.Startup $LM_HOST"]
 # Note: In Windows 11 the environment variables are propagated into the hcservice.Startup script
 # and can be used there. But in Windows 10 that doesn't appear to happen, so we must pass everything
