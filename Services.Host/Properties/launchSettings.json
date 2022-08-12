@@ -3,7 +3,9 @@
     "Services.Host": {
       "commandName": "Project",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "https://*:8086;http://*:8085",
+        "ASPNETCORE_HTTPS_PORT": "8086"
       }
     }
   }
