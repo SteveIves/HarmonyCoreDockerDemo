@@ -116,10 +116,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TypeScript", "TypeScript", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{D308B6D8-6B58-4034-A6FD-6D2D4CF4D04E}"
 	ProjectSection(SolutionItems) = preProject
-		docker\hcservice.Dockerfile = docker\hcservice.Dockerfile
-		docker\hcservice.Setup = docker\hcservice.Setup
-		docker\hcservice.Startup = docker\hcservice.Startup
+		docker\demoservice.Dockerfile = docker\demoservice.Dockerfile
+		docker\demoservice.Setup = docker\demoservice.Setup
+		docker\demoservice.Startup = docker\demoservice.Startup
 		docker\install.auto = docker\install.auto
+		docker\linuxbase.Dockerfile = docker\linuxbase.Dockerfile
+		docker\linuxbase.Setup = docker\linuxbase.Setup
+		docker\linuxbase.Startup = docker\linuxbase.Startup
 		docker\setup = docker\setup
 	EndProjectSection
 EndProject

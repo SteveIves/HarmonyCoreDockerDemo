@@ -1,0 +1,34 @@
+#!/bin/bash
+
+if [ ! -e 428SDE1211-3278.a ]
+then
+    echo -e "\nDownloading Synergy 12.1.1.3278\n"
+    wget --quiet https://s3.amazonaws.com/media.synergex.com/prod/428SDE1211-3278.a
+fi
+
+# Build parameters
+export BUILD_PARAMS=LM_HOST
+
+# In Ubuntu in WSL we can get the IP address of the default gateway, which is also the
+# address of the host PC, so we can use that to define the license server address. If
+# this does not work in your environment then export LM_HOST with the IP address of
+# your Synergy license server
+
+if [ -z "$LM_HOST"]
+then
+  export LM_HOST=$(/sbin/ip route | awk '/default/ { print $3 }')
+  if [ -z "$LM_HOST" ]
+  then
+    echo /e "\nERROR: No value provided for LM_HOST in hcservice.Setup!"
+    return 2> /dev/null; exit
+  fi
+fi
+
+# Runtime volume mappings
+export VOLUME_MAPPINGS=
+
+# Runtime environment variables
+export RUNTIME_ENVIRONMENT=
+
+# Runtime port mappings
+export PORT_MAPPINGS=
