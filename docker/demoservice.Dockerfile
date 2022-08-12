@@ -8,6 +8,7 @@ SHELL ["/bin/bash", "-c"]
 
 # Provide the script that dumb-init will execute on startup
 WORKDIR /root
+RUN rm /root/linuxbase.Startup
 COPY demoservice.Startup /root/demoservice.Startup
 RUN chmod +x /root/demoservice.Startup
 
