@@ -14,12 +14,14 @@ export BUILD_PARAMS=LM_HOST
 # this does not work in your environment then export LM_HOST with the IP address of
 # your Synergy license server
 
-export LM_HOST=$(/sbin/ip route | awk '/default/ { print $3 }')
-
-if [ -z "$LM_HOST" ]
+if [ -z "$LM_HOST"]
 then
+  export LM_HOST=$(/sbin/ip route | awk '/default/ { print $3 }')
+  if [ -z "$LM_HOST" ]
+  then
     echo /e "\nERROR: No value provided for LM_HOST in hcservice.Setup!"
     return 2> /dev/null; exit
+  fi
 fi
 
 # Runtime volume mappings
