@@ -9,8 +9,12 @@ fi
 # Build parameters
 export BUILD_PARAMS=LM_HOST
 
-if [ "$NAME" == "STEVEI" ]; then export LM_HOST=10.20.1.10; fi
-if [ "$NAME" == "sives" ];  then export LM_HOST=10.1.1.254; fi
+# In Ubuntu in WSL we can get the IP address of the default gateway, which is also the
+# address of the host PC, so we can use that to define the license server address. If
+# this does not work in your environment then export LM_HOST with the IP address of
+# your Synergy license server
+
+export LM_HOST=$(/sbin/ip route | awk '/default/ { print $3 }')
 
 if [ -z "$LM_HOST" ]
 then
