@@ -19,8 +19,9 @@ then
 fi
 
 # Runtime volume mappings
-export VOLUME_MAPPINGS=VOLUME1
-export VOLUME1=${HOME}/.aspnet/https:/root/.aspnet/https/
+export VOLUME_MAPPINGS=CERT_PATH,DATA_PATH
+export CERT_PATH=${HOME}/.aspnet/https:/root/.aspnet/https/
+export DATA_PATH=${HOME}/data:/root/data
 
 # Runtime environment variables
 export RUNTIME_ENVIRONMENT=LM_HOST,ASPNETCORE_ENVIRONMENT,ASPNETCORE_URLS,ASPNETCORE_HTTPS_PORT,ASPNETCORE_Kestrel__Certificates__Default__Path,ASPNETCORE_Kestrel__Certificates__Default__Password

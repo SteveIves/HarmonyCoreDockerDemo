@@ -93,26 +93,26 @@ namespace Services
             ;;Configure a custom primary key factory to provide new primary key
             ;;values for entities created via POST operations
 
-            ;;Create a new parameter file
-            data parameterFile, string, "DAT:sysparams.ddf"
-            data tmpChn = 0
-            try
-            begin
-                open(tmpChn,i:r,parameterFile)
-                close tmpChn
-                xcall delet(parameterFile)
-            end
-            catch (e, @NoFileFoundException)
-            begin
-                nop
-            end
-            finally
-            begin
-                data sourceFile = parameterFile.ToLower().Replace(".ddf",".txt")
-                xcall copy(sourceFile,parameterFile,1)
-            end
-            endtry
-
+;            ;;Create a new parameter file
+;            data parameterFile, string, "DAT:sysparams.ddf"
+;            data tmpChn = 0
+;            try
+;            begin
+;                open(tmpChn,i:r,parameterFile)
+;                close tmpChn
+;                xcall delet(parameterFile)
+;            end
+;            catch (e, @NoFileFoundException)
+;            begin
+;                nop
+;            end
+;            finally
+;            begin
+;                data sourceFile = parameterFile.ToLower().Replace(".ddf",".txt")
+;                xcall copy(sourceFile,parameterFile,1)
+;            end
+;            endtry
+;
             services.AddScoped<IPrimaryKeyFactory,PrimaryKeyGenerator>()
 
             ;;-----------------------------------------------------------------

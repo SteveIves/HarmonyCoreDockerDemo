@@ -53,8 +53,6 @@ namespace Services.Controllers
             {FromBody}
             required in aRequest, @AddTwoNumbers_Request
         proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
             mreturn ok(await _MyApiService.AddTwoNumbers(aRequest))
         endmethod
 
@@ -64,8 +62,6 @@ namespace Services.Controllers
             {FromBody}
             required in aRequest, @CustomerAdd_Request
         proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
             mreturn ok(await _MyApiService.CustomerAdd(aRequest))
         endmethod
 
@@ -75,8 +71,6 @@ namespace Services.Controllers
             {FromBody}
             required in aRequest, @CustomerDelete_Request
         proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
             mreturn ok(await _MyApiService.CustomerDelete(aRequest))
         endmethod
 
@@ -86,8 +80,6 @@ namespace Services.Controllers
             {FromBody}
             required in aRequest, @CustomerGet_Request
         proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
             mreturn ok(await _MyApiService.CustomerGet(aRequest))
         endmethod
 
@@ -104,8 +96,6 @@ namespace Services.Controllers
             {FromBody}
             required in aRequest, @CustomerUpdate_Request
         proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
             mreturn ok(await _MyApiService.CustomerUpdate(aRequest))
         endmethod
 
@@ -115,8 +105,6 @@ namespace Services.Controllers
             {FromBody}
             required in aRequest, @CustomerValidate_Request
         proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
             mreturn ok(await _MyApiService.CustomerValidate(aRequest))
         endmethod
 
@@ -133,8 +121,6 @@ namespace Services.Controllers
             {FromBody}
             required in aRequest, @GetLogicalName_Request
         proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
             mreturn ok(await _MyApiService.GetLogicalName(aRequest))
         endmethod
 
@@ -144,8 +130,6 @@ namespace Services.Controllers
             {FromBody}
             required in aRequest, @ItemAdd_Request
         proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
             mreturn ok(await _MyApiService.ItemAdd(aRequest))
         endmethod
 
@@ -155,8 +139,6 @@ namespace Services.Controllers
             {FromBody}
             required in aRequest, @ItemDelete_Request
         proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
             mreturn ok(await _MyApiService.ItemDelete(aRequest))
         endmethod
 
@@ -166,8 +148,6 @@ namespace Services.Controllers
             {FromBody}
             required in aRequest, @ItemGet_Request
         proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
             mreturn ok(await _MyApiService.ItemGet(aRequest))
         endmethod
 
@@ -184,8 +164,6 @@ namespace Services.Controllers
             {FromBody}
             required in aRequest, @ItemUpdate_Request
         proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
             mreturn ok(await _MyApiService.ItemUpdate(aRequest))
         endmethod
 
@@ -195,8 +173,6 @@ namespace Services.Controllers
             {FromBody}
             required in aRequest, @ItemValidate_Request
         proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
             mreturn ok(await _MyApiService.ItemValidate(aRequest))
         endmethod
 
@@ -206,8 +182,6 @@ namespace Services.Controllers
             {FromBody}
             required in aRequest, @OrderAdd_Request
         proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
             mreturn ok(await _MyApiService.OrderAdd(aRequest))
         endmethod
 
@@ -217,8 +191,6 @@ namespace Services.Controllers
             {FromBody}
             required in aRequest, @OrderDelete_Request
         proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
             mreturn ok(await _MyApiService.OrderDelete(aRequest))
         endmethod
 
@@ -228,8 +200,6 @@ namespace Services.Controllers
             {FromBody}
             required in aRequest, @OrderGet_Request
         proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
             mreturn ok(await _MyApiService.OrderGet(aRequest))
         endmethod
 
@@ -246,8 +216,6 @@ namespace Services.Controllers
             {FromBody}
             required in aRequest, @OrderItemAdd_Request
         proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
             mreturn ok(await _MyApiService.OrderItemAdd(aRequest))
         endmethod
 
@@ -257,8 +225,6 @@ namespace Services.Controllers
             {FromBody}
             required in aRequest, @OrderItemDelete_Request
         proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
             mreturn ok(await _MyApiService.OrderItemDelete(aRequest))
         endmethod
 
@@ -268,8 +234,6 @@ namespace Services.Controllers
             {FromBody}
             required in aRequest, @OrderItemGet_Request
         proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
             mreturn ok(await _MyApiService.OrderItemGet(aRequest))
         endmethod
 
@@ -279,8 +243,6 @@ namespace Services.Controllers
             {FromBody}
             required in aRequest, @OrderItemGetAll_Request
         proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
             mreturn ok(await _MyApiService.OrderItemGetAll(aRequest))
         endmethod
 
@@ -290,8 +252,6 @@ namespace Services.Controllers
             {FromBody}
             required in aRequest, @OrderItemUpdate_Request
         proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
             mreturn ok(await _MyApiService.OrderItemUpdate(aRequest))
         endmethod
 
@@ -301,8 +261,6 @@ namespace Services.Controllers
             {FromBody}
             required in aRequest, @OrderItemValidate_Request
         proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
             mreturn ok(await _MyApiService.OrderItemValidate(aRequest))
         endmethod
 
@@ -312,8 +270,6 @@ namespace Services.Controllers
             {FromBody}
             required in aRequest, @OrderUpdate_Request
         proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
             mreturn ok(await _MyApiService.OrderUpdate(aRequest))
         endmethod
 
@@ -323,8 +279,6 @@ namespace Services.Controllers
             {FromBody}
             required in aRequest, @OrderValidate_Request
         proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
             mreturn ok(await _MyApiService.OrderValidate(aRequest))
         endmethod
 
@@ -334,8 +288,6 @@ namespace Services.Controllers
             {FromBody}
             required in aRequest, @VendorAdd_Request
         proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
             mreturn ok(await _MyApiService.VendorAdd(aRequest))
         endmethod
 
@@ -345,8 +297,6 @@ namespace Services.Controllers
             {FromBody}
             required in aRequest, @VendorDelete_Request
         proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
             mreturn ok(await _MyApiService.VendorDelete(aRequest))
         endmethod
 
@@ -356,8 +306,6 @@ namespace Services.Controllers
             {FromBody}
             required in aRequest, @VendorGet_Request
         proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
             mreturn ok(await _MyApiService.VendorGet(aRequest))
         endmethod
 
@@ -374,8 +322,6 @@ namespace Services.Controllers
             {FromBody}
             required in aRequest, @VendorUpdate_Request
         proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
             mreturn ok(await _MyApiService.VendorUpdate(aRequest))
         endmethod
 
@@ -385,8 +331,6 @@ namespace Services.Controllers
             {FromBody}
             required in aRequest, @VendorValidate_Request
         proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
             mreturn ok(await _MyApiService.VendorValidate(aRequest))
         endmethod
 
