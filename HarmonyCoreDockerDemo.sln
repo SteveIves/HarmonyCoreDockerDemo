@@ -116,16 +116,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{D308B6
 	ProjectSection(SolutionItems) = preProject
 		docker\hcservice.Dockerfile = docker\hcservice.Dockerfile
 		docker\hcservice.Setup = docker\hcservice.Setup
-		docker\install.auto = docker\install.auto
 		docker\hcservice.Startup = docker\hcservice.Startup
+		docker\install.auto = docker\install.auto
 		docker\setup = docker\setup
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bin", "bin", "{0F7FDCDD-1E6F-4F28-B46F-B9E990A8DFF6}"
 	ProjectSection(SolutionItems) = preProject
 		docker\bin\build = docker\bin\build
+		docker\bin\attach. = docker\bin\attach.
 		docker\bin\cleanup = docker\bin\cleanup
-		docker\bin\connect = docker\bin\connect
 		docker\bin\containers = docker\bin\containers
 		docker\bin\images = docker\bin\images
 		docker\bin\pull = docker\bin\pull

@@ -103,13 +103,13 @@ if exist "%DeployDir%\." (
 rem The dotnet publish command will not build the TraditionalBridge project
 rem so first we'll build the solution to make sure its output is up to date.
 
-echo Building solution
-msbuild -nologo -p:platform="Any CPU" -p:configuration=Debug -verbosity:quiet
-
-if ERRORLEVEL 1 (
-  echo ERROR: Build failed!
-  goto done
-)
+rem echo Building solution
+rem msbuild -nologo -p:platform="Any CPU" -p:configuration=Debug -verbosity:quiet
+rem 
+rem if ERRORLEVEL 1 (
+rem   echo ERROR: Build failed!
+rem   goto done
+rem )
 
 rem Publish the application
 echo Publishing for %PLATFORM% to %DeployDir%
@@ -184,7 +184,10 @@ if /i "%TIME_STAMP_ZIP_FILE%" == "TRUE" (
   set zipFile=%SolutionDir%HarmonyCoreService-%PLATFORM%-%yyyymmdd%-%hh%%mm%.zip
 ) else (
   set zipFile=%SolutionDir%HarmonyCoreService-%PLATFORM%.zip
+  if exist "%zipFile%" del /q "%zipFile%"
 )
+
+rem If the zip file is already there, delete it
 
 if exist "%DeployDir%\." (
   if exist "%ProgramW6432%\7-Zip\7z.exe" (
