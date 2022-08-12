@@ -1,44 +1,24 @@
+
 FROM ubuntu:22.04
+
+# Put the apt utility into "noninteractive" mode where is totally silent
+ARG DEBIAN_FRONTEND=noninteractive
+ARG LM_HOST
 
 # Make bash the default shell for RUN commands and others
 SHELL ["/bin/bash", "-c"]
 
-# In order to be able to set environment variables from the "docker run" command
-# line, the variables must be declared here
-ENV LM_HOST=
-ENV ASPNETCORE_ENVIRONMENT=
-ENV ASPNETCORE_URLS=
-ENV ASPNETCORE_HTTPS_PORT=
-ENV ASPNETCORE_Kestrel__Certificates__Default__Path=
-ENV ASPNETCORE_Kestrel__Certificates__Default__Password=
-
-# This puts the apt utility into "noninteractive" mode, where it takes the default answer
-# for all questions and is totally silent
-ARG DEBIAN_FRONTEND=noninteractive
-
 # Install the packages we need in the container
-RUN apt update
-RUN apt install -y apt-transport-https bash cpio dumb-init unzip wget
-#apt-utils
+RUN apt update && apt install -y cpio dumb-init libicu70 unzip
 
-# Install the Microsoft package feed
-RUN wget -q https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
-RUN dpkg -i packages-microsoft-prod.deb
-RUN rm packages-microsoft-prod.deb
-RUN apt update
-
-# Install the ASP.NET 6 runtime
-RUN apt install -y --no-install-recommends aspnetcore-runtime-6.0
- 
-# Download and install Synergy
-ARG LM_HOST
+# Install Synergy
 WORKDIR /tmp/sdeinst
 COPY 428SDE1211-3278.a 428SDE1211-3278.a
 COPY install.auto install.auto
 RUN umask 0
 RUN cpio -icvBdum < 428SDE1211-3278.a
 RUN chmod a+x install.auto install.sde
-RUN ./install.auto -n $LM_HOST -l /synergyde
+RUN ./install.auto -n $LM_HOST -p 16 -l /synergyde
 WORKDIR /tmp
 RUN rm -rf sdeinst
 WORKDIR /

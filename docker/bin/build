@@ -45,6 +45,6 @@ then
 fi
 
 # Build the image
-buildCommand="docker build -f $1.Dockerfile $buildParams -t $1 ."
+buildCommand="docker build -f $1.Dockerfile $buildParams --squash -t $1 ."
 echo -e "\nINFO: Build command is: $buildCommand\n"
 $buildCommand
