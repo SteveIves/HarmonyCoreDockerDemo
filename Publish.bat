@@ -33,6 +33,30 @@ rem
 rem A good way to set these environment variables is to create a batch
 rem file named Publish.Settings.bat in the main solution folder. If
 rem the file is present it will be executed when this script runs.
+rem
+rem Here is an example of the content of a Publish.Settings.bat file:
+rem
+rem @echo off
+rem
+rem Additional files to include
+rem set INCLUDE_BRIDGE_FILES=TRUE
+rem set INCLUDE_SAMPLE_DATA=TRUE
+rem set INCLUDE_C_RUNTIME=TRUE
+rem
+rem Should the published files be zipped? (requires 7-zip)
+rem set PUBLISH_ZIP=TRUE
+rem set TIME_STAMP_ZIP_FILE=TRUE
+
+rem Settings to transfer ZIP file via a COPY command:
+rem set PUBLISH_MODE=COPY
+rem set PUBLISH_DIR=.\docker
+
+rem Settings to transfer ZIP file via FTP (requires WinSCP):
+rem set PUBLISH_MODE=FTP
+rem set PUBLISH_FTP_SERVER=ftp.somedomain.com
+rem set PUBLISH_FTP_USER=user
+rem set PUBLISH_FTP_PASSWORD=password
+rem 
 
 setlocal EnableDelayedExpansion
 
@@ -105,15 +129,19 @@ echo Publish complete
 popd
 
 rem Include the Traditional Bridge host program and startup script
-echo Copying traditional bridge files
-copy /y TraditionalBridge\EXE\host.dbr "%DeployDir%" > nul 2>&1
-copy /y TraditionalBridge\EXE\host.dbp "%DeployDir%" > nul 2>&1
-if /i "%PLATFORM%" == "windows" (
-  copy /y TraditionalBridge\launch.bat "%DeployDir%" > nul 2>&1
-)
-if /i "%PLATFORM%" == "linux" (
-  copy /y TraditionalBridge\launch "%DeployDir%" > nul 2>&1
-  copy /y TraditionalBridge\startService "%DeployDir%" > nul 2>&1
+if /i "%INCLUDE_BRIDGE_FILES%" == "TRUE" (
+  echo Copying traditional bridge files
+  copy /y TraditionalBridge\EXE\host.dbr "%DeployDir%" > nul 2>&1
+  copy /y TraditionalBridge\EXE\host.dbp "%DeployDir%" > nul 2>&1
+  if /i "%PLATFORM%" == "windows" (
+    copy /y TraditionalBridge\launch.bat "%DeployDir%" > nul 2>&1
+  )
+  if /i "%PLATFORM%" == "linux" (
+    copy /y TraditionalBridge\launch "%DeployDir%" > nul 2>&1
+    copy /y TraditionalBridge\startService "%DeployDir%" > nul 2>&1
+    tools\dos2unix "%DeployDir%\launch" > nul 2>&1
+    tools\dos2unix "%DeployDir%\startService" > nul 2>&1
+  )
 )
 
 if /i "%PLATFORM%" == "windows" (
@@ -130,6 +158,9 @@ if /i "%INCLUDE_SAMPLE_DATA%" == "TRUE" (
   echo Copying sample data
   if not exist "%DeployDir%\SampleData\." mkdir "%DeployDir%\SampleData"
   copy /y SampleData\*.* "%DeployDir%\SampleData" > nul 2>&1
+  if /i "%PLATFORM%" == "linux" (
+    tools\dos2unix "%DeployDir%\SampleData\*.*" > nul 2>&1
+  )
 )
 
 if /i "%PLATFORM%" == "windows" (
@@ -141,19 +172,12 @@ if /i "%PLATFORM%" == "windows" (
   )
 )
 
-if /i "%PLATFORM%" == "linux" (
-  echo Applying Linux line endings
-  tools\dos2unix "%DeployDir%\launch" > nul 2>&1
-  tools\dos2unix "%DeployDir%\startService" > nul 2>&1
-  tools\dos2unix "%DeployDir%\SampleData\*.*" > nul 2>&1
-)
-
 if /i not "%PUBLISH_ZIP%" == "TRUE" (
   goto done
 )
 
+rem Pick a zip file name
 if /i "%TIME_STAMP_ZIP_FILE%" == "TRUE" (
-  rem Pick a zip file name
   set yyyymmdd=%date:~-4%%date:~4,2%%date:~7,2%
   set hh=%TIME:~0,2%
   set mm=%TIME:~3,2%
