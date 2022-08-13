@@ -88,16 +88,16 @@ are as follows:
       The zip file was successfully copied to ".\docker"
     ```
 
-4.  Edit `ExportHttpsCertificate.Settings.bat`, changing the path in the
-    WSL_CERT_LOCATION environment variable so it matches your WSL2
-	Ubuntu system name and user acccount. i.e. replace "Ubuntu-22.04"
-	and "stevei" with appropriate values.
-
-5.  Use the dos2unix utility to verify that all of the scripts in
+4.  Use the dos2unix utility to verify that all of the scripts in
     and below the "docker" directory have Linux line endings. Like this:
     ```
       tools\dos2unix docker\\* docker\\bin\\*
     ```
+5.  Edit `ExportHttpsCertificate.Settings.bat`, changing the path in the
+    WSL_CERT_LOCATION environment variable so it matches your WSL2
+	Ubuntu system name and user acccount. i.e. replace "Ubuntu-22.04"
+	and "stevei" with appropriate values.
+
 6.  Back at the command prompt type
     ```
       ExportHttpCertificate
@@ -114,18 +114,39 @@ are as follows:
     ```
       ls $HOME/.aspnet/https
     ```
-8.  From the Linux environment, go to the windows file system, and
-    to the "docker" folder below your solution directory. For example
-    if you cloned the repsottory to C:\DEV\HarmonyCoreDockerDemo then
-    you would do this (assuming a default WSL2 configuration):
+Next you need to copy the sample data from the Windows system to the Linux
+system, from where it will be accessed by any running containers.
+
+You will create a new directory called "data" and  copy the sample data
+files into the new directory from Windows. The commands below assume that
+you cloned the repsottory to C:\DEV\HarmonyCoreDockerDemo and have a default
+WSL2 configuration.
+
+8.  From the Linux environment, execute these commands:
+    ```
+      mkdir ~/data
+      cd /mnt/c/DEV/HarmonyCoreDockerDemo/SampleData
+      cp *.ism *.is1 *.ddf ~/data
+      cd ~
+    ```
+
+Now it is time to build the Docker images for the demo environment. Once
+again the command below assume that you cloned the repsottory to
+`C:\DEV\HarmonyCoreDockerDemo` and are using a default WSL2 configuration.
+
+9. Still in Linux, move to the docker folder in the Windows file system:
     ```
       cd /mnt/c/DEV/HarmonyCoreDockerDemo/docker
     ```
-9.  Execute the setup script to add the "bin" folder to your PATH:
+
+10. Execute the `setup` shell script. This simply adds the "docker/bin"
+    folder to your PATH so that you can easily execute the shell scripts
+    present there:
     ```
       souce setup
      ```
-10. Build the 'linuxbase' docker image:
+
+11. Build the 'linuxbase' docker image:
     ```
       $ build linuxbase
     ```
@@ -162,7 +183,7 @@ are as follows:
        => => naming to docker.io/library/linuxbase
     ```
 
-11. Build the 'demoservice' docker image:
+12. Build the 'demoservice' docker image:
     ```
       $ build demoservice
     ```
@@ -196,7 +217,7 @@ are as follows:
        => => naming to docker.io/library/demoservice
     ```
 
-12. Start the demoservice container
+13. Start the demoservice container
     ```
       $ start demoservice attach
     ```
@@ -221,16 +242,38 @@ are as follows:
 	  Now listening on: http://[::]:8085
 	  Application started. Press Ctrl+C to shut down.
     ```
-13. Connect to and test the service using a web browser on your windows PC
+14. Connect to and test the service using a web browser on your windows PC
     by connecting to:
     ```
       https://localhost:8086
     ```
 
-14. Return to the Linux console and stop the service:
+15. Return to the Linux console and stop the service:
     ```
       Ctrl + C`
     ```
+
+# Supporting HTTPS in Docker
+
+The enironment used in this example is appropriate for development systems
+but not for production systems.
+
+In this environment we use the ASP.NET Developer SSL certificate that ASP.NET
+creates on Windows and move a copy of that certificate to Linux, where it is
+mapped into the running Docker container via a Docker volume mapping.
+
+Several runtime environment variables are propagated into the running
+container by the `start` shell script, based on information defined in the
+`demoservice.Setup` shell script. These environment variables are:
+```
+  ASPNETCORE_URLS
+  ASPNETCORE_HTTPS_PORT
+  ASPNETCORE_Kestrel__Certificates__Default__Path
+  ASPNETCORE_Kestrel__Certificates__Default__Password
+```
+
+# Were Does the Data Come From
+
 
 # Linux Docker Scripts
 
