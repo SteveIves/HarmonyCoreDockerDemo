@@ -12,11 +12,11 @@ To build, deploy and run this example you will need a reasonbably
 well equipped Windows development PC (Docker LOVES memory) with the
 following:
 
-* Latest version of Windows 10, or Windows 11, Professional or
-  Enterprise, with all Windows updates installed.
+* Windows 10 (latest version) or Windows 11 Professional or
+  Enterprise editions with all Windows updates installed.
 * Visual Studio 2022 (latest).
-* Synergy/DE 12.1.1.3278 or later.
-* Synergy DBL Integration for Visual Studio 2022.7.1223 or later.
+* Synergy/DE (latest).
+* Synergy DBL Integration for Visual Studio (latest).
 * 7-Zip.
 * Hyper-V enabled.
 * Windows Sybsystem for Linux V2 (WSL2) installed and running Ubuntu.
@@ -55,26 +55,32 @@ to the HTTP endpoint are redirected to the HTTPS endpoint.
 # Procedure
 
 After cloning this repository, the steps to run the demonstration
-are as follows:
+are shown below.
+
+When working on Windows we use `C:\>` to indicate a command to be
+typed on Windows, although your prompt may be different.
+
+When working on Linux we use `$` to indicate a command to be typed
+on Linux, although your prompt may be different.
 
 1.  Open the HarmonyCoreDeockerDemo.sln solution in Visual Studio 2022.
 
 2.  Build the complete solution.
     ```
-	  Build > Build Solution
+	  C:\> Build > Build Solution
 	```
 
 3.  From Visual Studio, open a Windows command prompt and go to the
     solution folder.
 	```
-	  cd ..
+	  C:\> cd ..
 	```
 
 4.  Publish the application for Linux. This will take a little while, but
     when it completes you should find that there is now a zip file named
     HarmonyCoreService-linux.zip in the "docker" folder.
     ```
-      publish linux
+      C:\> publish linux
     ```
 
     You will see various messages as the publish proceeds:
@@ -91,7 +97,7 @@ are as follows:
 4.  Use the dos2unix utility to verify that all of the scripts in
     and below the "docker" directory have Linux line endings. Like this:
     ```
-      tools\dos2unix docker\\* docker\\bin\\*
+      C:\> tools\dos2unix docker\\* docker\\bin\\*
     ```
 5.  Edit `ExportHttpsCertificate.Settings.bat`, changing the path in the
     WSL_CERT_LOCATION environment variable so it matches your WSL2
@@ -100,7 +106,7 @@ are as follows:
 
 6.  Back at the command prompt type
     ```
-      ExportHttpCertificate
+      C:\> ExportHttpCertificate
     ```
     Running this script does several things:
     * Creates a developer SSL certificate (if one does not already exist)
@@ -112,7 +118,7 @@ are as follows:
 7.  Log in to your WSL2 Linux environment and verify there is a file
     caled Services.Host.pfx in the $HOME/.aspnet/https
     ```
-      ls $HOME/.aspnet/https
+      $ ls $HOME/.aspnet/https
     ```
 Next you need to copy the sample data from the Windows system to the Linux
 system, from where it will be accessed by any running containers.
@@ -124,10 +130,10 @@ WSL2 configuration.
 
 8.  From the Linux environment, execute these commands:
     ```
-      mkdir ~/data
-      cd /mnt/c/DEV/HarmonyCoreDockerDemo/SampleData
-      cp *.ism *.is1 *.ddf ~/data
-      cd ~
+      $ mkdir ~/data
+      $ cd /mnt/c/DEV/HarmonyCoreDockerDemo/SampleData
+      $ cp *.ism *.is1 *.ddf ~/data
+      $ cd ~
     ```
 
 Now it is time to build the Docker images for the demo environment. Once
@@ -136,14 +142,14 @@ again the command below assume that you cloned the repsottory to
 
 9. Still in Linux, move to the docker folder in the Windows file system:
     ```
-      cd /mnt/c/DEV/HarmonyCoreDockerDemo/docker
+      $ cd /mnt/c/DEV/HarmonyCoreDockerDemo/docker
     ```
 
 10. Execute the `setup` shell script. This simply adds the "docker/bin"
     folder to your PATH so that you can easily execute the shell scripts
     present there:
     ```
-      souce setup
+      $ souce setup
      ```
 
 11. Build the 'linuxbase' docker image:
@@ -252,6 +258,16 @@ again the command below assume that you cloned the repsottory to
     ```
       Ctrl + C`
     ```
+# Where is the Data?
+
+In this example there is no data present in the Docker images or containers.
+The data being used resides in the ~/data folder on your WSL2 Linux system
+and is "mapped" into running containers via a Docker "volume". To the container
+the data appears to be local (in the /root/data folder) but is actually in
+a folder on the system hosting the container.
+
+This approach may not be appropriate for data in production scenarios, but that
+is a topic beyond the scope of this simple demo environment.
 
 # Supporting HTTPS in Docker
 
@@ -271,9 +287,6 @@ container by the `start` shell script, based on information defined in the
   ASPNETCORE_Kestrel__Certificates__Default__Path
   ASPNETCORE_Kestrel__Certificates__Default__Password
 ```
-
-# Were Does the Data Come From
-
 
 # Linux Docker Scripts
 
