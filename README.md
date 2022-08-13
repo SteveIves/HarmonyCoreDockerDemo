@@ -307,17 +307,17 @@ bin folder to your path by sourcing the docker/setup script:
 
 The scripts are:
 
-```build <imagename>```
+`build <imagename>`
 
-  Executes `\<imagename\>.Setup` to configure appropriate settings then processes
-  `\<imagename\>.Dockerfile` to produce a Docker image named `\<imagename\>`.
+Executes `\<imagename\>.Setup` to configure appropriate settings then processes
+`\<imagename\>.Dockerfile` to produce a Docker image named `\<imagename\>`.
 
-**rebuild \<imagename\>**
+`rebuild \<imagename\>`
 
 Like build but the local image cache is not used so a full rebuild of the
 image takes place.
 
-**start \<imagename\> [attach]**
+`start \<imagename\> [attach]`
 
 Executes `\<imagename\>.Setup` to configure appropriate settings then runs 
 the image `\<imagename\>` in a container. The container will be assigned a
