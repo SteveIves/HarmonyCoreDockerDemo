@@ -319,6 +319,8 @@ bin folder to your path by sourcing the docker/setup script:
 
 The scripts are:
 
+---
+
 `build <imagename>`
 
 Executes `<imagename>.Setup` to configure appropriate settings then processes
