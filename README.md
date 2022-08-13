@@ -13,9 +13,8 @@ well equipped Windows development PC (Docker LOVES memory) with the
 following:
 
 * Latest version of Windows 10, or Windows 11, Professional or
-  Enterprise, with all
-  Windows updates installed.
-* Visual Studio 2022 (latest version).
+  Enterprise, with all Windows updates installed.
+* Visual Studio 2022 (latest).
 * Synergy/DE 12.1.1.3278 or later.
 * Synergy DBL Integration for Visual Studio 2022.7.1223 or later.
 * 7-Zip.
@@ -26,8 +25,8 @@ following:
   integrated wiht the Ubuntu WSL2 machine environment.
 
 **NOTE:** This demonstration assumes that you have a Synergy License
-Server running on your Windows PC and that there is at least two
-available runtime licenses (e.g. RUN12). If this is not the case then
+Server running on your Windows PC and that there are at least two
+runtime licenses (e.g. RUN12) available. If this is not the case then
 you must export an environment variable in your WSL2 environment that
 specifies the IP address of the Synergy License Server to use. For
 example:
@@ -35,6 +34,23 @@ example:
   export LM_HOST=w.x.y.z
 ```
 This must be in place BEFORE using the `build` or `start` scrips on Linux.
+
+# Background Information
+
+This example creates two Docker images, one called linuxbase and one
+called demoservice.
+
+The linuxbase image is a minimal Ubuntu 22.04 system with a handful of
+additional packages (cpio, dumb-init, libicu70 and unzip) as well as
+Synergy 12.1 installed.
+
+The demoservice image is based on linuxbase, and adds a deployed
+Harmony Core service that exposes both OData and Traditional Bridge
+endpoints.
+
+When a demoservice container is started the Harmony Core service is
+launched and listens on ports 8085 (HTTP) and 8086 (HTTPS). Any requests
+to the HTTP endpoint are redirected to the HTTPS endpoint.
 
 # Procedure
 
