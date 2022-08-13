@@ -310,7 +310,7 @@ The scripts are:
 ```build <imagename>```
 
   Executes `\<imagename\>.Setup` to configure appropriate settings then processes
-`  \<imagename\>.Dockerfile` to produce a Docker image named `\<imagename\>`.
+  `\<imagename\>.Dockerfile` to produce a Docker image named `\<imagename\>`.
 
 **rebuild \<imagename\>**
 
