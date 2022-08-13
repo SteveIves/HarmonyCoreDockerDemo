@@ -55,17 +55,14 @@ to the HTTP endpoint are redirected to the HTTPS endpoint.
 # Managing Docker Without Sudo
 
 To make it easier to manage docker without having to use `sudo` for
-each command, follow this procedure:
+each command, follow this procedure log in to your WSL2 Linux system
+anmd execute the following commands:
 
-1.  Log in to your WSL2 Linux system
-
-2.  Execute the following commands:
-
-    ```
-      $ sudo groupadd docker
-      $ sudo usermod -aG docker $USER
-      $ newgrp docker
-    ```
+  ```
+    $ sudo groupadd docker
+    $ sudo usermod -aG docker $USER
+    $ newgrp docker
+  ```
 
 # Procedure
 
