@@ -297,11 +297,18 @@ container by the `start` shell script, based on information defined in the
 
 # Helper Scripts
 
-Several bash scripts are provided in the docker/bin folder to help you
-work with the docker build process, images and containers. These scripts
-are:
+Several bash scripts are provided in the `docker/bin` folder to help you
+work with the docker build process, images and containers. You can add the
+bin folder to your path by sourcing the docker/setup script:
 
-**build \<imagename\>**
+```
+  source setup
+```
+
+The scripts are:
+```
+build \<imagename\>**
+```
 
 Executes `\<imagename\>.Setup` to configure appropriate settings then processes
 `\<imagename\>.Dockerfile` to produce a Docker image named `\<imagename\>`.
