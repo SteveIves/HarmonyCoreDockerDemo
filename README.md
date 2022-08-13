@@ -2,7 +2,7 @@
 
 # Introduction
 
-This repository contains an example of how to deploy a Harmony Core service,
+This repository presents an example of deploying a Harmony Core service
 in a Docker container running Ubuntu Linux.
 
 # Requirements
