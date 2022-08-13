@@ -50,14 +50,6 @@ proc
     endtry
 
     ;;-------------------------------------------------------------------------
-    ;;Report the location of the API documentation
-
-    Console.WriteLine("API documentation     https://localhost:8086/swagger")
-    Console.WriteLine("Endpoint mappings     https://localhost:8086/odata/v1/$odata")
-    Console.WriteLine("OData metadata (XML)  https://localhost:8086/odata/v1/$metadata")
-    Console.WriteLine("OData metadata (JSON) https://localhost:8086/odata/v1/$metadata?$format=json")
-
-    ;;-------------------------------------------------------------------------
     ;;Define the location that static files are served from and make sure it exists
 
     data wwwroot = Path.Combine(AppContext.BaseDirectory, "wwwroot")

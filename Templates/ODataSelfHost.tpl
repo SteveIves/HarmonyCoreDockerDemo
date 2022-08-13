@@ -89,14 +89,6 @@ proc
     endtry
 
     ;;-------------------------------------------------------------------------
-    ;;Report the location of the API documentation
-
-    Console.WriteLine("API documentation     <SERVER_PROTOCOL>://<SERVER_NAME>:<SERVER_HTTPS_PORT>/swagger")
-    Console.WriteLine("Endpoint mappings     <SERVER_PROTOCOL>://<SERVER_NAME>:<SERVER_HTTPS_PORT>/<SERVER_BASE_PATH>/v<API_VERSION>/$odata")
-    Console.WriteLine("OData metadata (XML)  <SERVER_PROTOCOL>://<SERVER_NAME>:<SERVER_HTTPS_PORT>/<SERVER_BASE_PATH>/v<API_VERSION>/$metadata")
-    Console.WriteLine("OData metadata (JSON) <SERVER_PROTOCOL>://<SERVER_NAME>:<SERVER_HTTPS_PORT>/<SERVER_BASE_PATH>/v<API_VERSION>/$metadata?$format=json")
-
-    ;;-------------------------------------------------------------------------
     ;;Define the location that static files are served from and make sure it exists
 
     data wwwroot = Path.Combine(AppContext.BaseDirectory, "wwwroot")
