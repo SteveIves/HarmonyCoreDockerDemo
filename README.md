@@ -102,6 +102,13 @@ are as follows:
     ```
       ExportHttpCertificate
     ```
+    Running this script does several things:
+    * Creates a developer SSL certificate (if one does not already exist)
+      and exports it to a file, protected by a password.
+    * Trusts the certificate on Windows (if not already trusted).
+    * Creates a directory to contain the certificate on your Linux system.
+    * Copies the certificate to that directory on the Linux system.
+
 7.  Log in to your WSL2 Linux environment and verify there is a file
     caled Services.Host.pfx in the $HOME/.aspnet/https
     ```
