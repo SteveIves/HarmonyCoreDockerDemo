@@ -324,10 +324,14 @@ The scripts are:
 Executes `<imagename>.Setup` to configure appropriate settings then processes
 `<imagename>.Dockerfile` to produce a Docker image named `<imagename>`.
 
+Under the hood this script is executing a `docker build` command.
+
 `rebuild <imagename>`
 
 Like build but the local image cache is not used so a full rebuild of the
 image takes place.
+
+Under the hood this script is executing a `docker build --no-cache` command.
 
 `start <imagename> [attach]`
 
@@ -336,13 +340,13 @@ the image `<imagename>` in a container. The container will be assigned a
 unique ID as well as a random name, both of which can be used to interact
 with it.
 
+Under the hood this script is executing a `docker run` command.
+
 `images`
 
 Lists all Docker images that currently exist
 
-`show`
-
-Displays a list of all images and running containers.
+Under the hood this script is executing a `docker image ls` command.
 
 `containers`
 
@@ -350,27 +354,49 @@ Lists all Docker containers that are currently running. You can use this
 to obtain the generated name or ID of a container so you can connect to
 it or stop it.
 
+Under the hood this script is executing a `docker container ls` command.
+
+`show`
+
+Displays a list of all images and running containers.
+
+Under the hood this script is executing `docker image ls` and
+`docker container ls` commands.
+
 `attach <container_name_or_id>`
 
 Attaches your terminal to the root user account of a running container.
 Type `exit` to disconnect.
 
+Under the hood this script is executing a `docker exec -it <container_id_or_name> /bin/bash` command.
+
 `stop <container_name_or_id>`
 
 Stops a running container.
+
+Under the hood this script is executing a `docker container stop <container_id_or_name>` command.
 
 `stopall`
 
 Stops all running containers.
 
+Under the hood this script is executing a `docker container stop <container_id_or_name>` command
+for each running container.
+
 `cleanup`
 
 Cleans up the environment, removing any files that are no longer used.
+
+Under the hood this script is executing a `docker system prrune =-force` command.
 
 `pull <name>[:<tag>]`
 
 Pulls a Docker image from Docker Hub. 
 
+Under the hood this script is executing a `docker pull <dockerhub_user>/<imagename>:latest` command.
+
 `push <name>[:<tag>]`
 
 Pushes a Docker image from Docker Hub
+
+Under the hood this script is executing `docker tag <imagename>:latest <dockerhub_user>/<imagename>:latest` and `docker push <dockerhub_user>/<imagename>:latest` commands.

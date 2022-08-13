@@ -4,6 +4,6 @@ if [[ -z "$1" ]]
 then
   echo -e "\nUsage: stop <container_id>\n"
 else
-  docker container kill $1  
+  docker container stop $1  
 fi
 
