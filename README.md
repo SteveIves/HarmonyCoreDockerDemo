@@ -11,17 +11,20 @@ To build, deploy and run this example you will need a reasonbably
 well equipped Windows development PC (Docker LOVES memory) with the
 following:
 
-* Windows 10 (latest version) or Windows 11 Professional or
-  Enterprise editions with all Windows updates installed.
-* Visual Studio 2022 (latest).
-* Synergy/DE (latest).
-* Synergy DBL Integration for Visual Studio (latest).
-* 7-Zip.
-* Hyper-V enabled.
-* Windows Sybsystem for Linux V2 (WSL2) installed and running Ubuntu.
-  I tested with Ubuntu 22.04 but 20.04 should work also.
-* Docker desktop installed, running in WSL2 integrated mode, and
-  integrated wiht the Ubuntu WSL2 machine environment.
+* Windows 10 (latest) or Windows 11 (preferred)
+    * Professional or Enterprise edition
+    * All Windows updates installed
+    * Hyper-V enabled
+* Windows Sybsystem for Linux V2 (WSL2) running Ubuntu
+    * I tested with Ubuntu 22.04 but 20.04 should work also
+* Windows Terminal (latest)
+* Visual Studio 2022 (latest)
+* Visual Studio Code (latest)
+* Docker desktop running in WSL2 integrated mode and
+  integrated wiht the Ubuntu WSL2 machine environment
+* 7-Zip (latest)
+* Synergy/DE (latest)
+* Synergy DBL Integration for Visual Studio (latest)
 
 **NOTE:** This demonstration assumes that you have a Synergy License
 Server running on your Windows PC and that there are at least two
