@@ -52,6 +52,21 @@ When a demoservice container is started the Harmony Core service is
 launched and listens on ports 8085 (HTTP) and 8086 (HTTPS). Any requests
 to the HTTP endpoint are redirected to the HTTPS endpoint.
 
+# Managing Docker Without Sudo
+
+To make it easier to manage docker without having to use `sudo` for
+each command, follow this procedure:
+
+1.  Log in to your WSL2 Linux system
+
+2.  Execute the following commands:
+
+    ```
+      $ sudo groupadd docker
+      $ sudo usermod -aG docker $USER
+      $ newgrp docker
+    ```
+
 # Procedure
 
 After cloning this repository, the steps to run the demonstration
