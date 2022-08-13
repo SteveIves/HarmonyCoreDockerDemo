@@ -309,56 +309,56 @@ The scripts are:
 
 `build <imagename>`
 
-Executes `\<imagename\>.Setup` to configure appropriate settings then processes
-`\<imagename\>.Dockerfile` to produce a Docker image named `\<imagename\>`.
+Executes `<imagename>.Setup` to configure appropriate settings then processes
+`<imagename>.Dockerfile` to produce a Docker image named `<imagename>`.
 
-`rebuild \<imagename\>`
+`rebuild <imagename>`
 
 Like build but the local image cache is not used so a full rebuild of the
 image takes place.
 
-`start \<imagename\> [attach]`
+`start <imagename> [attach]`
 
-Executes `\<imagename\>.Setup` to configure appropriate settings then runs 
-the image `\<imagename\>` in a container. The container will be assigned a
+Executes `<imagename>.Setup` to configure appropriate settings then runs 
+the image `<imagename>` in a container. The container will be assigned a
 unique ID as well as a random name, both of which can be used to interact
 with it.
 
-**images**
+`images`
 
 Lists all Docker images that currently exist
 
-**show**
+`show`
 
 Displays a list of all images and running containers.
 
-**containers**
+`containers`
 
 Lists all Docker containers that are currently running. You can use this
 to obtain the generated name or ID of a container so you can connect to
 it or stop it.
 
-**attach <container_name_or_id>**
+`attach <container_name_or_id>`
 
 Attaches your terminal to the root user account of a running container.
 Type `exit` to disconnect.
 
-**stop <container_name_or_id>**
+`stop <container_name_or_id>`
 
 Stops a running container.
 
-**stopall**
+`stopall`
 
 Stops all running containers.
 
-**cleanup**
+`cleanup`
 
 Cleans up the environment, removing any files that are no longer used.
 
-**pull \<name\>[:\<tag\>]**
+`pull <name>[:<tag>]`
 
 Pulls a Docker image from Docker Hub. 
 
-**push \<name\>[:\<tag\>]**
+`push <name>[:<tag>]`
 
 Pushes a Docker image from Docker Hub
