@@ -241,18 +241,6 @@ again the command below assume that you cloned the repsottory to
     You should see the container and the Harmony Core service start,
     like this:
     ```
-	  INFO: Executing script demoservice.Startup
-	  INFO: Setting Synergy environment
-	  INFO: Setting Synergy license server to 172.22.240.1
-	  INFO: Starting Synergy license server
-	
-	  API documentation     https://localhost:8086/swagger
-	  Endpoint mappings     https://localhost:8086/odata/v1/$odata
-	  OData metadata (XML)  https://localhost:8086/odata/v1/$metadata
-	  OData metadata (JSON) https://localhost:8086/odata/v1/$metadata?$format=json
-	  Bridge mode           LOCAL
-	  Bridge logging level  2
-	
 	  Hosting environment: Production
 	  Content root path: /root/service/
 	  Now listening on: https://[::]:8086

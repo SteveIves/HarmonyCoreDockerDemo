@@ -1,27 +1,22 @@
 #!/bin/bash
 
-echo "INFO: Executing script hcservice.Startup"
-
 cd /root
 
 # Configure a Synergy environment
-echo "INFO: Setting Synergy environment"
 source /synergyde/setsde
 
-# Start Synergy License Manager
-
-echo -e "INFO: Setting Synergy license server to $1"
+# Configure Synergy license forwarding server
 lmu -nf $1
 if [[ ! $? -eq 0 ]]
 then
-    echo "ERROR: Failed to set Synergy license server!"
+    echo "ERROR: Failed to set Synergy license forwarding server to $1!"
 fi
 
-echo -e "INFO: Starting Synergy license server"
+# Start Synergy License Manager
 synd > /dev/null 2>&1
 if [[ ! $? -eq 0 ]]
 then
-    echo "ERROR: Failed to start Synergy license server!"
+    echo "ERROR: Failed to start Synergy license manager!"
 fi
 
 echo -e "\n"
