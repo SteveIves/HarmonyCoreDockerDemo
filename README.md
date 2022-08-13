@@ -261,10 +261,17 @@ again the command below assume that you cloned the repsottory to
 # Where is the Data?
 
 In this example there is no data present in the Docker images or containers.
-The data being used resides in the ~/data folder on your WSL2 Linux system
-and is "mapped" into running containers via a Docker "volume". To the container
-the data appears to be local (in the /root/data folder) but is actually in
-a folder on the system hosting the container.
+The data being used resides in the `~/data` folder on your WSL2 Linux system
+and is "mapped" into running containers via a Docker "volume". You can see
+that happening in the `demoservice.Setup` file:
+
+```
+  export DATA_PATH=${HOME}/data:/root/data
+```
+
+To the container the data appears to be local in the `/root/data` folder
+but is actually located in the `${HOME}/data` folder on the Linux system
+hosting the container.
 
 This approach may not be appropriate for data in production scenarios, but that
 is a topic beyond the scope of this simple demo environment.
