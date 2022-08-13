@@ -295,7 +295,7 @@ container by the `start` shell script, based on information defined in the
   ASPNETCORE_Kestrel__Certificates__Default__Password
 ```
 
-#Helper Scripts
+# Helper Scripts
 
 Several bash scripts are provided in the docker/bin folder to help you
 work with the docker build process, images and containers. These scripts
