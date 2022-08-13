@@ -326,12 +326,16 @@ Executes `<imagename>.Setup` to configure appropriate settings then processes
 
 Under the hood this script is executing a `docker build` command.
 
+---
+
 `rebuild <imagename>`
 
 Like build but the local image cache is not used so a full rebuild of the
 image takes place.
 
 Under the hood this script is executing a `docker build --no-cache` command.
+
+---
 
 `start <imagename> [attach]`
 
@@ -342,11 +346,15 @@ with it.
 
 Under the hood this script is executing a `docker run` command.
 
+---
+
 `images`
 
 Lists all Docker images that currently exist
 
 Under the hood this script is executing a `docker image ls` command.
+
+---
 
 `containers`
 
@@ -356,12 +364,16 @@ it or stop it.
 
 Under the hood this script is executing a `docker container ls` command.
 
+---
+
 `show`
 
 Displays a list of all images and running containers.
 
 Under the hood this script is executing `docker image ls` and
 `docker container ls` commands.
+
+---
 
 `attach <container_name_or_id>`
 
@@ -370,11 +382,15 @@ Type `exit` to disconnect.
 
 Under the hood this script is executing a `docker exec -it <container_id_or_name> /bin/bash` command.
 
+---
+
 `stop <container_name_or_id>`
 
 Stops a running container.
 
 Under the hood this script is executing a `docker container stop <container_id_or_name>` command.
+
+---
 
 `stopall`
 
@@ -383,17 +399,23 @@ Stops all running containers.
 Under the hood this script is executing a `docker container stop <container_id_or_name>` command
 for each running container.
 
+---
+
 `cleanup`
 
 Cleans up the environment, removing any files that are no longer used.
 
 Under the hood this script is executing a `docker system prrune =-force` command.
 
+---
+
 `pull <name>[:<tag>]`
 
 Pulls a Docker image from Docker Hub. 
 
 Under the hood this script is executing a `docker pull <dockerhub_user>/<imagename>:latest` command.
+
+---
 
 `push <name>[:<tag>]`
 
