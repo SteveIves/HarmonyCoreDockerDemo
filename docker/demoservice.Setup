@@ -1,14 +1,5 @@
 #!/bin/bash
 
-if [ ! -e 428SDE1211-3278.a ]
-then
-    echo -e "\nDownloading Synergy 12.1.1.3278\n"
-    wget --quiet https://s3.amazonaws.com/media.synergex.com/prod/428SDE1211-3278.a
-fi
-
-# Build parameters
-export BUILD_PARAMS=LM_HOST
-
 # In Ubuntu in WSL we can get the IP address of the default gateway, which is also the
 # address of the host PC, so we can use that to define the license server address. If
 # this does not work in your environment then export LM_HOST with the IP address of

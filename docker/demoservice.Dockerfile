@@ -1,10 +1,4 @@
-
 FROM linuxbase:latest
-
-ARG LM_HOST
-
-# Make bash the default shell for RUN commands and others
-SHELL ["/bin/bash", "-c"]
 
 # Provide the script that dumb-init will execute on startup
 WORKDIR /root
