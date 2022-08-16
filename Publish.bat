@@ -116,7 +116,9 @@ echo Publishing for %PLATFORM% to %DeployDir%
 
 pushd Services.Host
 
-dotnet publish -nologo -p:platform=AnyCPU --configuration Debug --runtime %RUNTIME% --self-contained --output "%DeployDir%" --verbosity quiet
+dotnet publish -nologo -p:platform=AnyCPU --configuration Debug ^
+  --runtime %RUNTIME% --self-contained --output "%DeployDir%" ^
+  --verbosity quiet
 
 if ERRORLEVEL 1 (
   echo ERROR: Publish failed!
@@ -230,12 +232,6 @@ if /i "%PUBLISH_MODE%" == "COPY" (
     echo ERROR: Unable to copy zip file to staging server because PUBLISH_DIR is not set!
     goto done
   )
-
-  rem Does the direrctory exist?
-  rem if not exist "%PUBLISH_DIR%\." (
-  rem   echo ERROR: Unable to copy zip file to staging server because directory %PUBLISH_DIR% does not exist!
-  rem   goto done
-  rem )
 
   rem Copy the file
   copy /y "%zipFile%" "%PUBLISH_DIR%" > nul 2>&1
