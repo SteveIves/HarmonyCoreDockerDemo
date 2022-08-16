@@ -136,8 +136,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bin", "bin", "{0F7FDCDD-1E6
 		docker\bin\pull = docker\bin\pull
 		docker\bin\push = docker\bin\push
 		docker\bin\rebuild = docker\bin\rebuild
+		docker\bin\run = docker\bin\run
 		docker\bin\show = docker\bin\show
-		docker\bin\start = docker\bin\start
 		docker\bin\stop = docker\bin\stop
 		docker\bin\stopall = docker\bin\stopall
 	EndProjectSection
