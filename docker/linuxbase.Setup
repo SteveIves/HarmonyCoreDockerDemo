@@ -28,7 +28,7 @@ fi
 export VOLUME_MAPPINGS=
 
 # Runtime environment variables
-export RUNTIME_ENVIRONMENT=
+export RUNTIME_ENVIRONMENT=LM_HOST
 
 # Runtime port mappings
 export PORT_MAPPINGS=
