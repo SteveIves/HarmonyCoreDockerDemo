@@ -117,8 +117,8 @@ echo Publishing for %PLATFORM% to %DeployDir%
 pushd Services.Host
 
 dotnet publish -nologo -p:platform=AnyCPU --configuration Debug ^
-  --runtime %RUNTIME% --self-contained --output "%DeployDir%" ^
-  --verbosity quiet
+  --runtime %RUNTIME% --self-contained true --output "%DeployDir%" ^
+  -p:PublishTrimmed=true --verbosity quiet
 
 if ERRORLEVEL 1 (
   echo ERROR: Publish failed!
